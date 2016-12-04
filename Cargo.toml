@@ -19,7 +19,7 @@ clap = "2"
 env_logger = "0.3"
 lsio = "0"
 rustc-serialize = "0.3"
-tokio-tls = { git = "https://github.com/tokio-rs/tokio-tls" }
+#tokio-tls = { git = "https://github.com/tokio-rs/tokio-tls" }
 bitflags = "0"
 byteorder = "0"
 log = "0"
