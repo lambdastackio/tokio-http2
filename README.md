@@ -1,10 +1,12 @@
 # HTTP/2 and HPACK
 
-![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Crates.io](https://img.shields.io/crates/d/tokio-http2.svg)]() [![Crates.io](https://img.shields.io/crates/l/tokio-http2.svg)]()
+![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
 
 #### Status
-HPACK - First phase working
-HTTP/2 - WIP
+- HPACK - First phase working
+- HTTP/2 - WIP
+
+NB: Several projects from the Tokio Project are not currently crates which means the dependencies in Cargo.toml reflects direct git pulls and thus this project can't be added as an updated crate. This should be resolved shortly or I will create a mirror crate of each tokio project to be used until the official given tokio project is published as a crate.
 
 <a name="contents"></a>
 ## Contents
