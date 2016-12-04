@@ -50,7 +50,7 @@ set_property(TARGET Libssh2::libssh2 APPEND PROPERTY IMPORTED_CONFIGURATIONS DEB
 set_target_properties(Libssh2::libssh2 PROPERTIES
   IMPORTED_LINK_INTERFACE_LANGUAGES_DEBUG "C"
   IMPORTED_LINK_INTERFACE_LIBRARIES_DEBUG "/opt/chefdk/embedded/lib/libssl.dylib;/opt/chefdk/embedded/lib/libcrypto.dylib;/opt/chefdk/embedded/lib/libz.dylib"
-  IMPORTED_LOCATION_DEBUG "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/src/libssh2.a"
+  IMPORTED_LOCATION_DEBUG "/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/src/libssh2.a"
   )
 
 # This file does not depend on other imported targets which have

@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out")
+  set(CMAKE_INSTALL_PREFIX "/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 

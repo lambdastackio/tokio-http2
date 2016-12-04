@@ -3,7 +3,7 @@
 
 # Relative path conversion top directories.
 set(CMAKE_RELATIVE_PATH_TOP_SOURCE "/Users/chrisjones/.cargo/registry/src/github.com-1ecc6299db9ec823/libssh2-sys-0.1.41/libssh2")
-set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build")
+set(CMAKE_RELATIVE_PATH_TOP_BINARY "/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build")
 
 # Force unix paths in dependencies.
 set(CMAKE_FORCE_UNIX_PATHS 1)

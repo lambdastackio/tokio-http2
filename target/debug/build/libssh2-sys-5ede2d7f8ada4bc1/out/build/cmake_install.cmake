@@ -2,7 +2,7 @@
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out")
+  set(CMAKE_INSTALL_PREFIX "/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -40,8 +40,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/src/cmake_install.cmake")
-  include("/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/docs/cmake_install.cmake")
+  include("/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/src/cmake_install.cmake")
+  include("/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/docs/cmake_install.cmake")
 
 endif()
 
@@ -53,5 +53,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/Users/chrisjones/projects/lambdastack/tokio-http2/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
