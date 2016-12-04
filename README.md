@@ -1,6 +1,7 @@
 # HTTP/2 and HPACK
 
-![Travis](https://travis-ci.org/lambdastackio/tokio-http2.svg?branch=master) ![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
+![Travis](https://travis-ci.org/lambdastackio/tokio-http2.svg?branch=master) [![AppVeyor](https://ci.appveyor.com/api/projects/status/dfha61c0flw41se0?svg=true)](https://ci.appveyor.com/project/hanscj1/tokio-http2) 
+ ![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
 
 #### Status
 - HPACK - First phase working
