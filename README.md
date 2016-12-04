@@ -2,6 +2,10 @@
 
 ![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Crates.io](https://img.shields.io/crates/d/tokio-http2.svg)]() [![Crates.io](https://img.shields.io/crates/l/tokio-http2.svg)]()
 
+#### Status
+HPACK - First phase working
+HTTP/2 - WIP
+
 <a name="contents"></a>
 ## Contents
 
