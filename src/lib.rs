@@ -26,6 +26,9 @@
 
 #[macro_use] extern crate log;
 extern crate rustc_serialize;
+#[macro_use]
+extern crate bitflags;
+extern crate byteorder;
 
 pub mod http2;
 pub mod hpack;

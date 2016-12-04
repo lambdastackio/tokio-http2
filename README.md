@@ -1,6 +1,6 @@
 # HTTP/2 and HPACK
 
-![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
+![Travis](https://travis-ci.org/lambdastackio/tokio-http2.svg?branch=master) ![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
 
 #### Status
 - HPACK - First phase working
@@ -58,7 +58,7 @@ NB: Several projects from the Tokio Project are not currently crates which means
 - Ability to be used long-term to build a solid Enterprise grade CICD Pipeline service
 - One possible long-term option would be to incorporate QoS features using mClock Algorithms like those used in VMWare
 
-\*note: these can all change based on needs
+*Note: the above objectives can change based on needs*
 
 *[Table of Contents](#contents)*
 
