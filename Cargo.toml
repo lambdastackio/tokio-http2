@@ -1,0 +1,25 @@
+[package]
+name = "tokio-http2"
+version = "0.1.2"
+authors = ["Chris Jones"]
+license = "Apache-2.0"
+readme = "README.md"
+keywords = ["http2", "hpack", "huffman", "tls", "tokio"]
+repository = "https://github.com/lambdastackio/tokio-http2"
+homepage = "https://lambdastackio.github.io/tokio-http2/tokio-http2"
+documentation = "https://lambdastackio.github.io/tokio-http2/tokio-http2"
+description = """
+HTTP/2 and HPACK library to be used in client and server. All of the multiplexing is based on the tokio project.
+"""
+
+[dependencies]
+url = "1"
+term = "0.4"
+clap = "2"
+env_logger = "0.3"
+lsio = "0"
+rustc-serialize = "0.3"
+tokio-tls = { git = "https://github.com/tokio-rs/tokio-tls" }
+bitflags = "0"
+byteorder = "0"
+log = "0"

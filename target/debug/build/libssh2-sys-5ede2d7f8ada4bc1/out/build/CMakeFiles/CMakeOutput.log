@@ -1,0 +1,475 @@
+The system is: Darwin - 16.1.0 - x86_64
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/cc 
+Build flags: ;-O0;-ffunction-sections;-fdata-sections;-m64;-fPIC
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is AppleClang, found in "/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/3.5.2/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9bad2/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_9bad2.dir/build.make CMakeFiles/cmTC_9bad2.dir/build
+Building C object CMakeFiles/cmTC_9bad2.dir/testCCompiler.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_9bad2.dir/testCCompiler.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/testCCompiler.c
+Linking C executable cmTC_9bad2
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9bad2.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_9bad2.dir/testCCompiler.c.o  -o cmTC_9bad2  
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a1b59/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a1b59.dir/build.make CMakeFiles/cmTC_a1b59.dir/build
+Building C object CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CMakeCCompilerABI.c
+Linking C executable cmTC_a1b59
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a1b59.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o  -o cmTC_a1b59   
+Apple LLVM version 8.0.0 (clang-800.0.42.1)
+Target: x86_64-apple-darwin16.1.0
+Thread model: posix
+InstalledDir: /Library/Developer/CommandLineTools/usr/bin
+ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.12.0 -o cmTC_a1b59 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o -L. -L/usr/local/lib -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a
+@(#)PROGRAM:ld  PROJECT:ld64-274.1
+configured to support archs: armv6 armv7 armv7s arm64 i386 x86_64 x86_64h armv6m armv7k armv7m armv7em (tvOS)
+Library search paths:
+	.
+	/usr/local/lib
+	/usr/lib
+	/usr/local/lib
+Framework search paths:
+	/Library/Frameworks/
+	/System/Library/Frameworks/
+
+
+Parsed C implicit link information from above output:
+  link line regex: [^( *|.*[/\])(ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
+  ignore line: [Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp]
+  ignore line: []
+  ignore line: [Run Build Command:"/usr/bin/make" "cmTC_a1b59/fast"]
+  ignore line: [/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a1b59.dir/build.make CMakeFiles/cmTC_a1b59.dir/build]
+  ignore line: [Building C object CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o]
+  ignore line: [/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CMakeCCompilerABI.c]
+  ignore line: [Linking C executable cmTC_a1b59]
+  ignore line: [/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a1b59.dir/link.txt --verbose=1]
+  ignore line: [/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names  -v -Wl,-v CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o  -o cmTC_a1b59   ]
+  ignore line: [Apple LLVM version 8.0.0 (clang-800.0.42.1)]
+  ignore line: [Target: x86_64-apple-darwin16.1.0]
+  ignore line: [Thread model: posix]
+  ignore line: [InstalledDir: /Library/Developer/CommandLineTools/usr/bin]
+  link line: [ "/Library/Developer/CommandLineTools/usr/bin/ld" -demangle -dynamic -arch x86_64 -macosx_version_min 10.12.0 -o cmTC_a1b59 -search_paths_first -headerpad_max_install_names -v CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o -L. -L/usr/local/lib -lSystem /Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+    arg [/Library/Developer/CommandLineTools/usr/bin/ld] ==> ignore
+    arg [-demangle] ==> ignore
+    arg [-dynamic] ==> ignore
+    arg [-arch] ==> ignore
+    arg [x86_64] ==> ignore
+    arg [-macosx_version_min] ==> ignore
+    arg [10.12.0] ==> ignore
+    arg [-o] ==> ignore
+    arg [cmTC_a1b59] ==> ignore
+    arg [-search_paths_first] ==> ignore
+    arg [-headerpad_max_install_names] ==> ignore
+    arg [-v] ==> ignore
+    arg [CMakeFiles/cmTC_a1b59.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [-L.] ==> ignore
+    arg [-L/usr/local/lib] ==> dir [/usr/local/lib]
+    arg [-lSystem] ==> lib [System]
+    arg [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a] ==> lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  Library search paths: [;.;/usr/local/lib;/usr/lib;/usr/local/lib]
+  Framework search paths: [;/Library/Frameworks/;/System/Library/Frameworks/]
+  remove lib [System]
+  collapse lib [/Library/Developer/CommandLineTools/usr/bin/../lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a] ==> [/Library/Developer/CommandLineTools/usr/lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [.] ==> [/Users/chrisjones/.cargo/registry/src/github.com-1ecc6299db9ec823/libssh2-sys-0.1.41/libssh2]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse library dir [/usr/lib] ==> [/usr/lib]
+  collapse library dir [/usr/local/lib] ==> [/usr/local/lib]
+  collapse framework dir [/Library/Frameworks/] ==> [/Library/Frameworks]
+  collapse framework dir [/System/Library/Frameworks/] ==> [/System/Library/Frameworks]
+  implicit libs: [/Library/Developer/CommandLineTools/usr/lib/clang/8.0.0/lib/darwin/libclang_rt.osx.a]
+  implicit dirs: [/usr/local/lib;/Users/chrisjones/.cargo/registry/src/github.com-1ecc6299db9ec823/libssh2-sys-0.1.41/libssh2;/usr/lib]
+  implicit fwks: [/Library/Frameworks;/System/Library/Frameworks]
+
+
+
+
+Detecting C [-std=c11] compiler features compiled with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_befa0/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_befa0.dir/build.make CMakeFiles/cmTC_befa0.dir/build
+Building C object CMakeFiles/cmTC_befa0.dir/feature_tests.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -std=c11 -o CMakeFiles/cmTC_befa0.dir/feature_tests.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_befa0
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_befa0.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_befa0.dir/feature_tests.c.o  -o cmTC_befa0  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:1c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c99] compiler features compiled with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cc78f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_cc78f.dir/build.make CMakeFiles/cmTC_cc78f.dir/build
+Building C object CMakeFiles/cmTC_cc78f.dir/feature_tests.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -std=c99 -o CMakeFiles/cmTC_cc78f.dir/feature_tests.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_cc78f
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cc78f.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_cc78f.dir/feature_tests.c.o  -o cmTC_cc78f  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:1c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:1c_variadic_macros
+
+
+Detecting C [-std=c90] compiler features compiled with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_2b554/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_2b554.dir/build.make CMakeFiles/cmTC_2b554.dir/build
+Building C object CMakeFiles/cmTC_2b554.dir/feature_tests.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -std=c90 -o CMakeFiles/cmTC_2b554.dir/feature_tests.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/feature_tests.c
+Linking C executable cmTC_2b554
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_2b554.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_2b554.dir/feature_tests.c.o  -o cmTC_2b554  
+
+
+    Feature record: C_FEATURE:1c_function_prototypes
+    Feature record: C_FEATURE:0c_restrict
+    Feature record: C_FEATURE:0c_static_assert
+    Feature record: C_FEATURE:0c_variadic_macros
+Determining if the function EVP_aes_128_ctr exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_33397/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_33397.dir/build.make CMakeFiles/cmTC_33397.dir/build
+Building C object CMakeFiles/cmTC_33397.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=EVP_aes_128_ctr   -o CMakeFiles/cmTC_33397.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_33397
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_33397.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=EVP_aes_128_ctr -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_33397.dir/CheckFunctionExists.c.o  -o cmTC_33397  /opt/chefdk/embedded/lib/libssl.dylib /opt/chefdk/embedded/lib/libcrypto.dylib 
+
+
+Determining if files unistd.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_47ec3/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_47ec3.dir/build.make CMakeFiles/cmTC_47ec3.dir/build
+Building C object CMakeFiles/cmTC_47ec3.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_47ec3.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_47ec3
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_47ec3.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_47ec3.dir/CheckIncludeFiles.c.o  -o cmTC_47ec3  
+
+
+Determining if files inttypes.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_88d5e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_88d5e.dir/build.make CMakeFiles/cmTC_88d5e.dir/build
+Building C object CMakeFiles/cmTC_88d5e.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_88d5e.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_88d5e
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_88d5e.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_88d5e.dir/CheckIncludeFiles.c.o  -o cmTC_88d5e  
+
+
+Determining if files stdlib.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_8e0fd/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_8e0fd.dir/build.make CMakeFiles/cmTC_8e0fd.dir/build
+Building C object CMakeFiles/cmTC_8e0fd.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_8e0fd.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_8e0fd
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_8e0fd.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_8e0fd.dir/CheckIncludeFiles.c.o  -o cmTC_8e0fd  
+
+
+Determining if files sys/select.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_290de/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_290de.dir/build.make CMakeFiles/cmTC_290de.dir/build
+Building C object CMakeFiles/cmTC_290de.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_290de.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_290de
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_290de.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_290de.dir/CheckIncludeFiles.c.o  -o cmTC_290de  
+
+
+Determining if files sys/uio.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_bdc8e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_bdc8e.dir/build.make CMakeFiles/cmTC_bdc8e.dir/build
+Building C object CMakeFiles/cmTC_bdc8e.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_bdc8e.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_bdc8e
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bdc8e.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_bdc8e.dir/CheckIncludeFiles.c.o  -o cmTC_bdc8e  
+
+
+Determining if files sys/socket.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1a12f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_1a12f.dir/build.make CMakeFiles/cmTC_1a12f.dir/build
+Building C object CMakeFiles/cmTC_1a12f.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_1a12f.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_1a12f
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1a12f.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_1a12f.dir/CheckIncludeFiles.c.o  -o cmTC_1a12f  
+
+
+Determining if files sys/ioctl.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e5335/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e5335.dir/build.make CMakeFiles/cmTC_e5335.dir/build
+Building C object CMakeFiles/cmTC_e5335.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_e5335.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_e5335
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e5335.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e5335.dir/CheckIncludeFiles.c.o  -o cmTC_e5335  
+
+
+Determining if files sys/time.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1719a/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_1719a.dir/build.make CMakeFiles/cmTC_1719a.dir/build
+Building C object CMakeFiles/cmTC_1719a.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_1719a.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_1719a
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_1719a.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_1719a.dir/CheckIncludeFiles.c.o  -o cmTC_1719a  
+
+
+Determining if files sys/un.h exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_d6dec/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_d6dec.dir/build.make CMakeFiles/cmTC_d6dec.dir/build
+Building C object CMakeFiles/cmTC_d6dec.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_d6dec.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+Linking C executable cmTC_d6dec
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_d6dec.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_d6dec.dir/CheckIncludeFiles.c.o  -o cmTC_d6dec  
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_0a262/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_0a262.dir/build.make CMakeFiles/cmTC_0a262.dir/build
+Building C object CMakeFiles/cmTC_0a262.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_0a262.dir/CheckIncludeFile.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_0a262
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a262.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_0a262.dir/CheckIncludeFile.c.o  -o cmTC_0a262  
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_17710/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_17710.dir/build.make CMakeFiles/cmTC_17710.dir/build
+Building C object CMakeFiles/cmTC_17710.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_17710.dir/CheckIncludeFile.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_17710
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_17710.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_17710.dir/CheckIncludeFile.c.o  -o cmTC_17710  
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_9277c/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_9277c.dir/build.make CMakeFiles/cmTC_9277c.dir/build
+Building C object CMakeFiles/cmTC_9277c.dir/CheckIncludeFile.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_9277c.dir/CheckIncludeFile.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+Linking C executable cmTC_9277c
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_9277c.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_9277c.dir/CheckIncludeFile.c.o  -o cmTC_9277c  
+
+
+Determining size of long long passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_a78a9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_a78a9.dir/build.make CMakeFiles/cmTC_a78a9.dir/build
+Building C object CMakeFiles/cmTC_a78a9.dir/LONGLONG.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_a78a9.dir/LONGLONG.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CheckTypeSize/LONGLONG.c
+Linking C executable cmTC_a78a9
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_a78a9.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_a78a9.dir/LONGLONG.c.o  -o cmTC_a78a9  
+
+
+Determining if the gettimeofday exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_c889b/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_c889b.dir/build.make CMakeFiles/cmTC_c889b.dir/build
+Building C object CMakeFiles/cmTC_c889b.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_c889b.dir/CheckSymbolExists.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_c889b
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c889b.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_c889b.dir/CheckSymbolExists.c.o  -o cmTC_c889b  
+
+File /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <sys/time.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef gettimeofday
+  return ((int*)(&gettimeofday))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the strtoll exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e12d9/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e12d9.dir/build.make CMakeFiles/cmTC_e12d9.dir/build
+Building C object CMakeFiles/cmTC_e12d9.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_e12d9.dir/CheckSymbolExists.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_e12d9
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_e12d9.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_e12d9.dir/CheckSymbolExists.c.o  -o cmTC_e12d9  
+
+File /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdlib.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef strtoll
+  return ((int*)(&strtoll))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the snprintf exist passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_cab36/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_cab36.dir/build.make CMakeFiles/cmTC_cab36.dir/build
+Building C object CMakeFiles/cmTC_cab36.dir/CheckSymbolExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_cab36.dir/CheckSymbolExists.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_cab36
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_cab36.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC  -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_cab36.dir/CheckSymbolExists.c.o  -o cmTC_cab36  
+
+File /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <stdio.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef snprintf
+  return ((int*)(&snprintf))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the function socket exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_148e3/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_148e3.dir/build.make CMakeFiles/cmTC_148e3.dir/build
+Building C object CMakeFiles/cmTC_148e3.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=socket   -o CMakeFiles/cmTC_148e3.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_148e3
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_148e3.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=socket -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_148e3.dir/CheckFunctionExists.c.o  -o cmTC_148e3  
+
+
+Determining if the function select exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_45acc/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_45acc.dir/build.make CMakeFiles/cmTC_45acc.dir/build
+Building C object CMakeFiles/cmTC_45acc.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=select   -o CMakeFiles/cmTC_45acc.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_45acc
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_45acc.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=select -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_45acc.dir/CheckFunctionExists.c.o  -o cmTC_45acc  
+
+
+Determining if the function inet_addr exists passed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f21e0/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_f21e0.dir/build.make CMakeFiles/cmTC_f21e0.dir/build
+Building C object CMakeFiles/cmTC_f21e0.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=inet_addr   -o CMakeFiles/cmTC_f21e0.dir/CheckFunctionExists.c.o   -c /usr/local/Cellar/cmake/3.5.2/share/cmake/Modules/CheckFunctionExists.c
+Linking C executable cmTC_f21e0
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_f21e0.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DCHECK_FUNCTION_EXISTS=inet_addr -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_f21e0.dir/CheckFunctionExists.c.o  -o cmTC_f21e0  
+
+
+Performing C SOURCE FILE Test HAVE_O_NONBLOCK succeeded with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_550dc/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_550dc.dir/build.make CMakeFiles/cmTC_550dc.dir/build
+Building C object CMakeFiles/cmTC_550dc.dir/src.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DHAVE_O_NONBLOCK   -o CMakeFiles/cmTC_550dc.dir/src.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_550dc
+/usr/local/Cellar/cmake/3.5.2/bin/cmake -E cmake_link_script CMakeFiles/cmTC_550dc.dir/link.txt --verbose=1
+/usr/bin/cc   -O0 -ffunction-sections -fdata-sections -m64 -fPIC -DHAVE_O_NONBLOCK -Wl,-search_paths_first -Wl,-headerpad_max_install_names   CMakeFiles/cmTC_550dc.dir/src.c.o  -o cmTC_550dc  /opt/chefdk/embedded/lib/libssl.dylib /opt/chefdk/embedded/lib/libcrypto.dylib /opt/chefdk/embedded/lib/libz.dylib 
+
+Source file was:
+
+#include <sys/types.h>
+#include <unistd.h>
+#include <fcntl.h>
+
+#if defined(sun) || defined(__sun__) || defined(__SUNPRO_C) || defined(__SUNPRO_CC)
+# if defined(__SVR4) || defined(__srv4__)
+#  define PLATFORM_SOLARIS
+# else
+#  define PLATFORM_SUNOS4
+# endif
+#endif
+#if (defined(_AIX) || defined(__xlC__)) && !defined(_AIX41)
+# define PLATFORM_AIX_V3
+#endif
+
+#if defined(PLATFORM_SUNOS4) || defined(PLATFORM_AIX_V3) || defined(__BEOS__)
+#error "O_NONBLOCK does not work on this platform"
+#endif
+
+int main()
+{
+    int socket;
+    int flags = fcntl(socket, F_SETFL, flags | O_NONBLOCK);
+}

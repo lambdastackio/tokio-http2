@@ -1,0 +1,63 @@
+Determining if files windows.h exist failed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_06f5e/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_06f5e.dir/build.make CMakeFiles/cmTC_06f5e.dir/build
+Building C object CMakeFiles/cmTC_06f5e.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_06f5e.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:10: fatal error: 'windows.h' file not found
+#include <windows.h>
+         ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTC_06f5e.dir/CheckIncludeFiles.c.o] Error 1
+make: *** [cmTC_06f5e/fast] Error 2
+
+Source:
+/* */
+#include <windows.h>
+
+
+int main(void){return 0;}
+
+Determining if files ws2tcpip.h exist failed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_e4e92/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_e4e92.dir/build.make CMakeFiles/cmTC_e4e92.dir/build
+Building C object CMakeFiles/cmTC_e4e92.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_e4e92.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:10: fatal error: 'ws2tcpip.h' file not found
+#include <ws2tcpip.h>
+         ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTC_e4e92.dir/CheckIncludeFiles.c.o] Error 1
+make: *** [cmTC_e4e92/fast] Error 2
+
+Source:
+/* */
+#include <ws2tcpip.h>
+
+
+int main(void){return 0;}
+
+Determining if files winsock2.h exist failed with the following output:
+Change Dir: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7862f/fast"
+/Library/Developer/CommandLineTools/usr/bin/make -f CMakeFiles/cmTC_7862f.dir/build.make CMakeFiles/cmTC_7862f.dir/build
+Building C object CMakeFiles/cmTC_7862f.dir/CheckIncludeFiles.c.o
+/usr/bin/cc    -O0 -ffunction-sections -fdata-sections -m64 -fPIC    -o CMakeFiles/cmTC_7862f.dir/CheckIncludeFiles.c.o   -c /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c
+/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:2:10: fatal error: 'winsock2.h' file not found
+#include <winsock2.h>
+         ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTC_7862f.dir/CheckIncludeFiles.c.o] Error 1
+make: *** [cmTC_7862f/fast] Error 2
+
+Source:
+/* */
+#include <winsock2.h>
+
+
+int main(void){return 0;}
+

@@ -1,0 +1,211 @@
+running: "cmake" "/Users/chrisjones/.cargo/registry/src/github.com-1ecc6299db9ec823/libssh2-sys-0.1.41/libssh2" "-DCRYPTO_BACKEND=OpenSSL" "-DOPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include" "-DBUILD_SHARED_LIBS=OFF" "-DENABLE_ZLIB_COMPRESSION=ON" "-DCMAKE_INSTALL_LIBDIR=lib" "-DBUILD_EXAMPLES=OFF" "-DBUILD_TESTING=OFF" "-DCMAKE_INSTALL_PREFIX=/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out" "-DCMAKE_C_FLAGS= -O0 -ffunction-sections -fdata-sections -m64 -fPIC" "-DCMAKE_C_COMPILER=/usr/bin/cc" "-DCMAKE_CXX_FLAGS= -O0 -ffunction-sections -fdata-sections -m64 -fPIC" "-DCMAKE_CXX_COMPILER=/usr/bin/c++" "-DCMAKE_BUILD_TYPE=Debug"
+-- 
+-- The following features have been enabled:
+
+ * Compression , using zlib for compression
+ * diffie-hellman-group-exchange-sha1 , "new" diffie-hellman-group-exchange-sha1 method
+ * Logging , Logging of execution with debug trace
+
+-- The following REQUIRED packages have been found:
+
+ * OpenSSL
+ * ZLIB
+
+-- The following features have been disabled:
+
+ * Shared library , creating libssh2 as a shared library (.so/.dll)
+ * "none" cipher
+ * "none" MAC
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/build
+running: "cmake" "--build" "." "--target" "install" "--config" "Debug" "--" "-j8"
+[100%] Built target libssh2
+Install the project...
+-- Install configuration: "Debug"
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/AUTHORS
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/COPYING
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/HACKING
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/README
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/RELEASE-NOTES
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/doc/libssh2/NEWS
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/include/libssh2.h
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/include/libssh2_publickey.h
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/include/libssh2_sftp.h
+-- Installing: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib/libssh2.a
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib/cmake/libssh2/Libssh2Config.cmake
+-- Installing: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib/cmake/libssh2/Libssh2Config-debug.cmake
+-- Installing: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib/pkgconfig/libssh2.pc
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib/cmake/libssh2/Libssh2ConfigVersion.cmake
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_connect.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_disconnect.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_get_identity.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_list_identities.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_agent_userauth.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_banner_set.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_base64_decode.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_close.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_direct_tcpip.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_direct_tcpip_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_eof.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_exec.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_flush.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_flush_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_flush_stderr.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_forward_accept.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_forward_cancel.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_forward_listen.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_forward_listen_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_get_exit_signal.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_get_exit_status.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_handle_extended_data.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_handle_extended_data2.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_ignore_extended_data.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_open_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_open_session.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_process_startup.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_read.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_read_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_read_stderr.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_receive_window_adjust.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_receive_window_adjust2.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_request_pty.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_request_pty_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_request_pty_size.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_request_pty_size_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_send_eof.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_set_blocking.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_setenv.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_setenv_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_shell.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_subsystem.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_wait_closed.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_wait_eof.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_window_read.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_window_read_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_window_write.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_window_write_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_write.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_write_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_write_stderr.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_x11_req.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_channel_x11_req_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_exit.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_hostkey_hash.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_keepalive_config.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_keepalive_send.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_add.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_addc.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_check.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_checkp.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_del.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_get.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_readfile.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_readline.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_writefile.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_knownhost_writeline.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_poll.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_poll_channel_read.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_add.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_add_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_list_fetch.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_list_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_remove.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_remove_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_publickey_shutdown.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_scp_recv.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_scp_recv2.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_scp_send.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_scp_send64.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_scp_send_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_abstract.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_banner_get.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_banner_set.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_block_directions.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_callback_set.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_disconnect.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_disconnect_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_flag.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_free.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_get_blocking.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_get_timeout.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_hostkey.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_init_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_last_errno.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_last_error.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_set_last_error.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_method_pref.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_methods.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_set_blocking.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_set_timeout.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_startup.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_session_supported_algs.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_close.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_close_handle.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_closedir.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_fsetstat.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_fstat.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_fstat_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_fstatvfs.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_fsync.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_get_channel.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_init.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_last_error.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_lstat.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_mkdir.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_mkdir_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_open.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_open_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_opendir.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_read.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_readdir.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_readdir_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_readlink.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_realpath.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_rename.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_rename_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_rewind.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_rmdir.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_rmdir_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_seek.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_seek64.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_setstat.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_shutdown.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_stat.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_stat_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_statvfs.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_symlink.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_symlink_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_tell.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_tell64.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_unlink.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_unlink_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_sftp_write.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_trace.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_trace_sethandler.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_authenticated.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_hostbased_fromfile.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_hostbased_fromfile_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_keyboard_interactive.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_keyboard_interactive_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_list.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_password.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_password_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_publickey.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_publickey_fromfile.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_userauth_publickey_fromfile_ex.3
+-- Up-to-date: /Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/share/man/man3/libssh2_version.3
+cargo:root=/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out
+cargo:rustc-link-lib=static=ssh2
+cargo:rustc-link-search=native=/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/lib
+cargo:include=/Users/chrisjones/projects/lambdastack/http2hpack/target/debug/build/libssh2-sys-5ede2d7f8ada4bc1/out/include
