@@ -223,6 +223,7 @@ impl<'a, I> Iterator for BitIterator<'a, I>
     }
 }
 
+// See README.md for actual characters of the following hex codes.
 static HUFFMAN_CODE_TABLE: &'static [(u32, u8)] = &[
     (0x1ff8, 13),
     (0x7fffd8, 23),

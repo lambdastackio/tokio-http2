@@ -1,6 +1,6 @@
 # HTTP/2 and HPACK
 
-![Travis](https://travis-ci.org/lambdastackio/tokio-http2.svg?branch=master) [![AppVeyor](https://ci.appveyor.com/api/projects/status/dfha61c0flw41se0?svg=true)](https://ci.appveyor.com/project/hanscj1/tokio-http2) 
+![Travis](https://travis-ci.org/lambdastackio/tokio-http2.svg?branch=master) [![AppVeyor](https://ci.appveyor.com/api/projects/status/dfha61c0flw41se0?svg=true)](https://ci.appveyor.com/project/hanscj1/tokio-http2)
  ![Badge](https://img.shields.io/crates/v/tokio-http2.svg) [![Downloads](https://img.shields.io/crates/d/tokio-http2.svg)]() [![License](https://img.shields.io/crates/l/tokio-http2.svg)]()
 
 #### Status
@@ -12,7 +12,7 @@ NB: Several projects from the Tokio Project are not currently crates which means
 <a name="contents"></a>
 ## Contents
 
-* [Contents](#contents)
+1. [Contents](#contents)
 * [API Documentation](https://lambdastackio.github.io/tokio-http2/tokio-http2/index.html)
 * [Tokio Project](https://github.com/tokio-rs)
 * [Tokio-HTTP2 Design Goals](#design)
