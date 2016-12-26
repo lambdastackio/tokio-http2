@@ -25,10 +25,40 @@
 //! compression that includes the Huffman encoding/decoding features.
 
 #[macro_use] extern crate log;
+#[macro_use] extern crate bitflags;
+#[macro_use] extern crate url;
 extern crate rustc_serialize;
-#[macro_use]
-extern crate bitflags;
 extern crate byteorder;
 
-pub mod http2;
-pub mod hpack;
+extern crate cookie;
+extern crate futures;
+extern crate futures_cpupool;
+extern crate httparse;
+extern crate net2;
+extern crate time;
+extern crate tokio_core;
+extern crate tokio_proto;
+extern crate tokio_service;
+extern crate tokio_tls;
+
+//pub mod http2;
+//pub mod hpack;
+
+pub mod http;
+pub mod uri;
+pub mod version;
+pub mod method;
+pub mod error;
+pub mod status;
+
+pub type Body = Vec<u8>;
+pub type ContentType = String;
+pub type ContentLength = u64;
+pub type Headers = Vec<(String, String)>;
+
+pub use method::Method::{self, Get, Head, Post, Delete};
+pub use status::StatusCode::{self, Ok, BadRequest, NotFound};
+pub use uri::RequestUri;
+pub use version::HttpVersion;
+pub use error::{Result, Error};
+pub use url::Url;
