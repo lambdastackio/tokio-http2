@@ -17,6 +17,7 @@ mod request;
 mod response;
 
 use std::io;
+// use std::net::SocketAddr;
 
 use tokio_proto::pipeline::ServerProto;
 use tokio_core::io::{Io, Codec, Framed, EasyBuf};
