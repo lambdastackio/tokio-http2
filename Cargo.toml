@@ -31,6 +31,7 @@ native-tls = "0.1.0"
 mime = "0.2"
 unicase = "1.0"
 language-tags = "0"
+multipart = "0"
 tokio-core = "0"
 tokio-tls = { git = "https://github.com/tokio-rs/tokio-tls" }
 tokio-proto = { path = "../tokio-proto" } #git = "https://github.com/tokio-rs/tokio-proto" }

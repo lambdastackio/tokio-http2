@@ -13,16 +13,25 @@
 // limitations under the License.
 
 use std::{io, slice, str, fmt};
+use std::fs::File;
+use std::io::{Error, Read};
 use std::net::SocketAddr;
+use std::collections::HashMap;
+use std::collections::hash_map::Entry::*;
+use std::ops::DerefMut;
 
-use tokio_core::io::EasyBuf;
-// use uri::RequestUri;
+use tokio_core::io::{EasyBuf, EasyBufMut};
+use unicase::UniCase;
 use httparse;
+use url::form_urlencoded;
 
-use version::HttpVersion;
+use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
+
+// use version::HttpVersion;
 
 // NB: Slice is used so as to quickly extract portions of the buffer and to not have to use lifetimes.
 
+#[derive(Clone)]
 pub struct Request {
     // Convenience
     content_length: usize,
@@ -46,9 +55,20 @@ pub struct Request {
 
 type Slice = (usize, usize);
 
+#[derive(Debug)]
 pub struct RequestHeaders<'req> {
-    headers: slice::Iter<'req, (Slice, Slice)>,
+    pub headers: slice::Iter<'req, (Slice, Slice)>,
     req: &'req Request,
+}
+
+impl Read for Request {
+    fn read<'a>(&'a mut self, buf: &'a mut [u8]) -> Result<usize, io::Error> {
+        let len = self.data.len();
+        let mut data = self.data.get_mut();
+        let ref mut buffer: Vec<u8> = *data.deref_mut();
+        buf.clone_from_slice(buffer.as_mut_slice());
+        Ok(len)
+    }
 }
 
 impl Request {
@@ -57,8 +77,24 @@ impl Request {
         self.content_length
     }
 
-    /// For non POST, PUT methods this represents `Accept` header.
     pub fn content_type(&self) -> &str {
+        match self.content_type.find(';') {
+            Some(index) => &self.content_type[..index],
+            None => &self.content_type,
+        }
+    }
+
+    pub fn content_type_metadata(&self) -> Option<Vec<&str>> {
+        match self.content_type.find(';') {
+            Some(index) => {
+                let metadata: Vec<&str> = self.content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
+                Some(metadata)
+            },
+            None => None,
+        }
+    }
+
+    pub fn content_type_all(&self) -> &str {
         &self.content_type
     }
 
@@ -91,8 +127,22 @@ impl Request {
         }
     }
 
-    pub fn query(&self) -> &str {
-        str::from_utf8(self.slice(&self.query)).unwrap()
+    pub fn query(&self) -> Option<HashMap<String, Vec<String>>> {
+        if self.query.0 == 0 && self.query.1 == 0 {
+            None
+        } else {
+            let data = str::from_utf8(self.slice(&self.query)).unwrap();
+            Some(combine_duplicates(form_urlencoded::parse(data.as_bytes()).into_owned()))
+        }
+    }
+
+    pub fn urldecode(&self, data: &[u8]) -> Option<HashMap<String, Vec<String>>> {
+        if data.is_empty() {
+            None
+        } else {
+            // let data = data.as_bytes();
+            Some(combine_duplicates(form_urlencoded::parse(data).into_owned()))
+        }
     }
 
     pub fn scheme(&self) -> &str {
@@ -121,6 +171,15 @@ impl Request {
     // #[inline]
     // pub fn headers(&self) -> &Headers { &self.headers }
 
+    pub fn header(&self, key: &str) -> Option<&str> {
+        match self.headers().find(|&(k, v)| UniCase(k) == UniCase(key)) {
+            Some((key, value)) => Some(str::from_utf8(value).unwrap_or("")),
+            None => None
+        }
+        // println!("{:?}", value);
+        // Some("something")
+    }
+
     pub fn headers(&self) -> RequestHeaders {
         RequestHeaders {
             headers: self.headers.iter(),
@@ -138,6 +197,22 @@ impl fmt::Debug for Request {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<HTTP Request {} {}>", self.method(), self.path())
     }
+}
+
+fn combine_duplicates<I: Iterator<Item=(String, String)>>(collection: I) -> HashMap<String, Vec<String>> {
+    let mut deduplicated: HashMap<String, Vec<String>> = HashMap::new();
+
+    for (k, v) in collection {
+        match deduplicated.entry(k) {
+            // Already a Vec here, push onto it
+            Occupied(entry) => { entry.into_mut().push(v); },
+
+            // No value, create a one-element Vec.
+            Vacant(entry) => { entry.insert(vec![v]); },
+        };
+    }
+
+    deduplicated
 }
 
 pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
@@ -164,7 +239,7 @@ pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
 
         let scheme = String::from("http");  // Hardcoded for now!
         let host = r.header("host").unwrap_or("").to_string();
-        let mut content_type = String::from("");
+        let content_type: String;
         match r.method {
             Some("POST") | Some("PUT") => content_type = r.header("content-type").unwrap_or("application/octet-stream").to_string(),
             Some(_) => content_type = r.header("accept").unwrap_or("text/plain").to_string(),
@@ -237,5 +312,26 @@ impl<'req> Iterator for RequestHeaders<'req> {
             let b = self.req.slice(b);
             (str::from_utf8(a).unwrap(), b)
         })
+    }
+}
+
+// Multipart
+
+// impl<'r> HttpRequest for &'r mut Request {
+impl HttpRequest for Request {
+    type Body = Self;
+
+    fn multipart_boundary(&self) -> Option<&str> {
+        const BOUNDARY: &'static str = "boundary=";
+
+        let content_type = self.content_type();
+        let start = content_type.find(BOUNDARY).unwrap_or(0) + BOUNDARY.len();
+        let end = content_type[start..].find(';').map_or(content_type.len(), |end| start + end);
+
+        Some(&content_type[start .. end])
+    }
+
+    fn body(self) -> Self {
+        self
     }
 }

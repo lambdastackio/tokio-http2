@@ -27,8 +27,10 @@
 #[macro_use] extern crate log;
 #[macro_use] extern crate bitflags;
 #[macro_use] extern crate url;
+extern crate unicase;
 extern crate rustc_serialize;
 extern crate byteorder;
+extern crate multipart;
 
 extern crate cookie;
 extern crate futures;
