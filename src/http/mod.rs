@@ -12,12 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-mod date;
-mod request;
-mod response;
-
 use std::io;
-// use std::net::SocketAddr;
+use tokio_core::net::TcpStream;
+use std::net::SocketAddr;
 
 use tokio_proto::pipeline::ServerProto;
 use tokio_core::io::{Io, Codec, Framed, EasyBuf};
@@ -25,28 +22,45 @@ use tokio_core::io::{Io, Codec, Framed, EasyBuf};
 pub use self::request::Request;
 pub use self::response::Response;
 
-pub struct Http;
+mod date;
+mod request;
+mod response;
+pub mod buffer;
 
-impl<T: Io + 'static> ServerProto<T> for Http {
-    type Request = Request;
-    type Response = Response;
-    type Error = io::Error;
-    type Transport = Framed<T, HttpCodec>;
-    type BindTransport = io::Result<Framed<T, HttpCodec>>;
+pub struct HttpProto;
 
-    fn bind_transport(&self, io: T) -> io::Result<Framed<T, HttpCodec>> {
-        Ok(io.framed(HttpCodec))
+// codec here so as to create a Codec that can handle a remote_addr field.
+impl HttpProto {
+    fn codec(&self, remote_addr: SocketAddr) -> HttpCodec {
+        HttpCodec{ remote_addr: Some(remote_addr) }
     }
 }
 
-pub struct HttpCodec;
+impl ServerProto<TcpStream> for HttpProto {
+    type Request = Request;
+    type Response = Response;
+    type Error = io::Error;
+    type Transport = Framed<TcpStream, HttpCodec>;
+    type BindTransport = io::Result<Framed<TcpStream, HttpCodec>>;
+
+    fn bind_transport(&self, io: TcpStream) -> io::Result<Framed<TcpStream, HttpCodec>> {
+        let addr = io.peer_addr()?;
+        Ok(io.framed(self.codec(addr)))
+    }
+}
+
+// remote_addr is passed to the decode function to be added to the Request struct that eventually
+// gets passed to the Service call method in the server application.
+pub struct HttpCodec {
+    remote_addr: Option<SocketAddr>,
+}
 
 impl Codec for HttpCodec {
     type In = Request;
     type Out = Response;
 
     fn decode(&mut self, buf: &mut EasyBuf) -> io::Result<Option<Request>> {
-        request::decode(buf)
+        request::decode(buf, self.remote_addr)
     }
 
     fn encode(&mut self, msg: Response, buf: &mut Vec<u8>) -> io::Result<()> {
@@ -54,3 +68,35 @@ impl Codec for HttpCodec {
         Ok(())
     }
 }
+
+// Original shown here for example reference...
+
+// pub struct Http;
+//
+// impl<T: Io + 'static> ServerProto<T> for Http {
+//     type Request = Request;
+//     type Response = Response;
+//     type Error = io::Error;
+//     type Transport = Framed<T, HttpCodec>;
+//     type BindTransport = io::Result<Framed<T, HttpCodec>>;
+//
+//     fn bind_transport(&self, io: T) -> io::Result<Framed<T, HttpCodec>> {
+//         Ok(io.framed(HttpCodec))
+//     }
+// }
+//
+// pub struct HttpCodec;
+//
+// impl Codec for HttpCodec {
+//     type In = Request;
+//     type Out = Response;
+//
+//     fn decode(&mut self, buf: &mut EasyBuf) -> io::Result<Option<Request>> {
+//         request::decode(buf)
+//     }
+//
+//     fn encode(&mut self, msg: Response, buf: &mut Vec<u8>) -> io::Result<()> {
+//         response::encode(msg, buf);
+//         Ok(())
+//     }
+// }

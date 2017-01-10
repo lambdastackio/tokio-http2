@@ -19,6 +19,7 @@ use std::net::SocketAddr;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry::*;
 use std::ops::DerefMut;
+use std::cmp;
 
 use tokio_core::io::{EasyBuf, EasyBufMut};
 use unicase::UniCase;
@@ -26,6 +27,7 @@ use httparse;
 use url::form_urlencoded;
 
 use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
+use super::buffer::Buffer;
 
 // use version::HttpVersion;
 
@@ -36,6 +38,7 @@ pub struct Request {
     // Convenience
     content_length: usize,
     content_type: String,
+    content_type_metadata: String,
     host: String,
 
     method: Slice,
@@ -47,10 +50,13 @@ pub struct Request {
     uri: String,
     username: String,
     version: u8,
-    // remote_addr: SocketAddr,
+    pub remote_addr: Option<SocketAddr>,
     // TODO: use a small vec to avoid this unconditional allocation
     headers: Vec<(Slice, Slice)>,
     data: EasyBuf,
+    buffer: Buffer,
+    // offset: usize,
+    // buf_reader: Option<BufReader>,
 }
 
 type Slice = (usize, usize);
@@ -63,10 +69,23 @@ pub struct RequestHeaders<'req> {
 
 impl Read for Request {
     fn read<'a>(&'a mut self, buf: &'a mut [u8]) -> Result<usize, io::Error> {
-        let len = self.data.len();
-        let mut data = self.data.get_mut();
-        let ref mut buffer: Vec<u8> = *data.deref_mut();
-        buf.clone_from_slice(buffer.as_mut_slice());
+        let len = try!(self.buffer.bytes().read(buf));
+        println!("{:?}", len);
+        // let data_len = self.data.len();
+        // let mut data = self.data.get_mut();
+        // let ref mut buffer: Vec<u8> = *data.deref_mut();
+        // println!("{:?}", buf.len());
+        // println!("{:?}", buffer.len());
+        // let buf_len = buf.len();
+        // let len = cmp::min(buf_len, buffer.len());
+        // println!("{:?}", len);
+        // buf[..len].copy_from_slice(&buffer[..len]);
+
+        // buf[..len].copy_from_slice(&buffer[self.offset..len]);
+        // self.offset += len;
+        // if self.offset >= data_len {
+        //     self.offset = 0;
+        // }
         Ok(len)
     }
 }
@@ -84,15 +103,23 @@ impl Request {
         }
     }
 
-    pub fn content_type_metadata(&self) -> Option<Vec<&str>> {
-        match self.content_type.find(';') {
-            Some(index) => {
-                let metadata: Vec<&str> = self.content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
-                Some(metadata)
-            },
-            None => None,
+    pub fn content_type_metadata(&self) -> Option<&str> {
+        if self.content_type_metadata.is_empty() {
+            None
+        } else {
+            Some(&self.content_type_metadata)
         }
     }
+
+    // pub fn content_type_metadata(&self) -> Option<Vec<&str>> {
+    //     match self.content_type.find(';') {
+    //         Some(index) => {
+    //             let metadata: Vec<&str> = self.content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
+    //             Some(metadata)
+    //         },
+    //         None => None,
+    //     }
+    // }
 
     pub fn content_type_all(&self) -> &str {
         &self.content_type
@@ -140,7 +167,6 @@ impl Request {
         if data.is_empty() {
             None
         } else {
-            // let data = data.as_bytes();
             Some(combine_duplicates(form_urlencoded::parse(data).into_owned()))
         }
     }
@@ -155,6 +181,14 @@ impl Request {
         &self.scheme
     }
 
+    pub fn set_remote_addr(&mut self, remote_addr: SocketAddr) {
+        self.remote_addr = Some(remote_addr);
+    }
+
+    pub fn remote_addr(&mut self) -> Option<SocketAddr> {
+        self.remote_addr
+    }
+
     pub fn uri(&self) -> &str {
         &self.uri
     }
@@ -167,17 +201,11 @@ impl Request {
         self.version
     }
 
-    /// The headers of the incoming request.
-    // #[inline]
-    // pub fn headers(&self) -> &Headers { &self.headers }
-
     pub fn header(&self, key: &str) -> Option<&str> {
         match self.headers().find(|&(k, v)| UniCase(k) == UniCase(key)) {
             Some((key, value)) => Some(str::from_utf8(value).unwrap_or("")),
             None => None
         }
-        // println!("{:?}", value);
-        // Some("something")
     }
 
     pub fn headers(&self) -> RequestHeaders {
@@ -215,8 +243,8 @@ fn combine_duplicates<I: Iterator<Item=(String, String)>>(collection: I) -> Hash
     deduplicated
 }
 
-pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
-    let (content_length, content_type, host, method, path, payload, query, scheme, uri, version, headers, amt) = {
+pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<Option<Request>> {
+    let (buffer, content_length, content_type, content_type_metadata, host, method, path, payload, query, scheme, uri, version, headers, amt) = {
         let mut headers = [httparse::EMPTY_HEADER; 16];
         let mut r = httparse::Request::new(&mut headers);
         let status = try!(r.parse(buf.as_slice()).map_err(|e| {
@@ -229,7 +257,7 @@ pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
             httparse::Status::Partial => return Ok(None),
         };
 
-        println!("{:?}", String::from_utf8_lossy(buf.as_slice()));
+        // println!("{:?}", String::from_utf8_lossy(buf.as_slice()));
 
         let toslice = |a: &[u8]| {
             let start = a.as_ptr() as usize - buf.as_slice().as_ptr() as usize;
@@ -245,6 +273,28 @@ pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
             Some(_) => content_type = r.header("accept").unwrap_or("text/plain").to_string(),
             None => content_type = "application/octet-stream".to_string(),
         }
+        // let mut content_type_metadata: HashMap<&str, &str> = HashMap::new();
+        // match content_type.find(';') {
+        //     Some(index) => {
+        //         let metadata: Vec<&str> = content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
+        //         for meta in metadata {
+        //             let meta_split: Vec<&str> = meta.split('=').collect();
+        //             if !meta_split.is_empty() {
+        //                 content_type_metadata.insert(meta_split[0], meta_split[1]);
+        //             }
+        //         }
+        //     },
+        //     None => {},
+        // }
+
+        let mut content_type_metadata = String::new();
+        match content_type.find(';') {
+            Some(index) => {
+                content_type_metadata = content_type[index+1..].trim().to_string();
+            },
+            None => {},
+        }
+
         let content_length: usize = r.header("content-length").unwrap_or("0").parse::<usize>().unwrap_or(0);
         // Adjust `amt` to also include payload
         amt += content_length;
@@ -268,8 +318,13 @@ pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
 
         let uri = format!("{}://{}{}", scheme, host, uri_str);
 
-        (content_length,
+        let mut buffer: Buffer = Buffer::new();
+        buffer.write(&buf.as_slice()[payload.0..payload.1]);
+
+        (buffer,
+         content_length,
          content_type,
+         content_type_metadata, // if content_type_metadata.is_empty() {None} else {Some(content_type_metadata)},
          host,
          method,
          path,
@@ -286,20 +341,25 @@ pub fn decode(buf: &mut EasyBuf) -> io::Result<Option<Request>> {
     };
 
     Ok(Request {
+        // buf_reader: buf_reader,
         content_length: content_length,
         content_type: content_type,
+        content_type_metadata: content_type_metadata,
         host: host,
         method: method,
         password: "".to_string(),
         path: path,
         payload: payload,
         query: query,
+        remote_addr: remote_addr,
         scheme: scheme,
         uri: uri,
         username: "".to_string(),
         version: version,
         headers: headers,
         data: buf.drain_to(amt),
+        buffer: buffer,
+        // offset: 0,
     }.into())
 }
 
@@ -324,11 +384,13 @@ impl HttpRequest for Request {
     fn multipart_boundary(&self) -> Option<&str> {
         const BOUNDARY: &'static str = "boundary=";
 
-        let content_type = self.content_type();
-        let start = content_type.find(BOUNDARY).unwrap_or(0) + BOUNDARY.len();
-        let end = content_type[start..].find(';').map_or(content_type.len(), |end| start + end);
-
-        Some(&content_type[start .. end])
+        match self.content_type_metadata() {
+            Some(meta) => {
+                let index = meta.find(BOUNDARY).unwrap_or(0) + BOUNDARY.len();
+                Some(&meta[index..])
+            },
+            None => None
+        }
     }
 
     fn body(self) -> Self {

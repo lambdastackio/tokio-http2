@@ -43,13 +43,12 @@ extern crate tokio_proto;
 extern crate tokio_service;
 extern crate tokio_tls;
 
-//pub mod http2;
-//pub mod hpack;
+// Leave these...
+// pub mod http2;
+// pub mod hpack;
 
 pub mod http;
-// pub mod uri;
 pub mod version;
-// pub mod method;
 pub mod error;
 pub mod status;
 
@@ -58,9 +57,17 @@ pub type ContentType = String;
 pub type ContentLength = u64;
 pub type Headers = Vec<(String, String)>;
 
-// pub use method::Method::{self, Get, Head, Post, Delete};
 pub use status::StatusCode::{self, Ok, BadRequest, NotFound};
-// pub use uri::RequestUri;
 pub use version::HttpVersion;
 pub use error::{Result, Error};
 pub use url::Url;
+
+
+// pub mod method;
+// pub mod uri;
+// mod tcp_server;
+// mod service;
+// pub use method::Method::{self, Get, Head, Post, Delete};
+// pub use uri::RequestUri;
+// pub use service::{NewService, Service};
+// pub use tcp_server::{TcpServer, HttpService};
