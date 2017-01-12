@@ -12,9 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+#![allow(dead_code)]
+
 use std::{io, slice, str, fmt};
 use std::fs::File;
-use std::io::{Error, Read};
+use std::io::{Error, Read, BufReader};
 use std::net::SocketAddr;
 use std::collections::HashMap;
 use std::collections::hash_map::Entry::*;
@@ -29,18 +31,52 @@ use url::form_urlencoded;
 use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
 use super::buffer::Buffer;
 
-// use version::HttpVersion;
+// Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.
+#[derive(Clone)]
+struct ReqReader {
+    inner: EasyBuf,
+    pos: usize,
+    cap: usize,
+}
+
+impl ReqReader {
+    fn new(inner: EasyBuf) -> ReqReader {
+        ReqReader{ inner: inner.clone(), pos: 0, cap: inner.len() }
+    }
+
+    fn consume(&mut self, amt: usize) {
+        self.pos = cmp::min(self.pos + amt, self.cap);
+    }
+
+    fn reset(&mut self) {
+        self.pos = 0;
+        self.cap = self.inner.len();
+    }
+
+    fn as_slice(&self) -> &[u8] {
+        self.inner.as_slice()
+    }
+}
+
+impl Read for ReqReader {
+    fn read(&mut self, buf: &mut [u8]) -> io::Result<usize> {
+        let len  = cmp::min(buf.len(), self.cap - self.pos);
+        buf[0..len].copy_from_slice(&self.inner.as_slice()[self.pos..self.pos + len]);
+        self.consume(len);
+        Ok(len)
+    }
+}
 
 // NB: Slice is used so as to quickly extract portions of the buffer and to not have to use lifetimes.
 
 #[derive(Clone)]
 pub struct Request {
-    // Convenience
+    // Convenience - begin
     content_length: usize,
     content_type: String,
     content_type_metadata: String,
     host: String,
-
+    // Convenience - end
     method: Slice,
     password: String,
     path: Slice,
@@ -50,13 +86,10 @@ pub struct Request {
     uri: String,
     username: String,
     version: u8,
-    pub remote_addr: Option<SocketAddr>,
-    // TODO: use a small vec to avoid this unconditional allocation
+    remote_addr: Option<SocketAddr>,
     headers: Vec<(Slice, Slice)>,
-    data: EasyBuf,
-    buffer: Buffer,
-    // offset: usize,
-    // buf_reader: Option<BufReader>,
+    data: ReqReader,
+    // data: EasyBuf,
 }
 
 type Slice = (usize, usize);
@@ -69,23 +102,7 @@ pub struct RequestHeaders<'req> {
 
 impl Read for Request {
     fn read<'a>(&'a mut self, buf: &'a mut [u8]) -> Result<usize, io::Error> {
-        let len = try!(self.buffer.bytes().read(buf));
-        println!("{:?}", len);
-        // let data_len = self.data.len();
-        // let mut data = self.data.get_mut();
-        // let ref mut buffer: Vec<u8> = *data.deref_mut();
-        // println!("{:?}", buf.len());
-        // println!("{:?}", buffer.len());
-        // let buf_len = buf.len();
-        // let len = cmp::min(buf_len, buffer.len());
-        // println!("{:?}", len);
-        // buf[..len].copy_from_slice(&buffer[..len]);
-
-        // buf[..len].copy_from_slice(&buffer[self.offset..len]);
-        // self.offset += len;
-        // if self.offset >= data_len {
-        //     self.offset = 0;
-        // }
+        let len = try!(self.data.read(buf));
         Ok(len)
     }
 }
@@ -111,16 +128,6 @@ impl Request {
         }
     }
 
-    // pub fn content_type_metadata(&self) -> Option<Vec<&str>> {
-    //     match self.content_type.find(';') {
-    //         Some(index) => {
-    //             let metadata: Vec<&str> = self.content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
-    //             Some(metadata)
-    //         },
-    //         None => None,
-    //     }
-    // }
-
     pub fn content_type_all(&self) -> &str {
         &self.content_type
     }
@@ -133,10 +140,6 @@ impl Request {
         str::from_utf8(self.slice(&self.method)).unwrap()
     }
 
-    /// The remote socket address of this request
-    // #[inline]
-    // pub fn remote_addr(&self) -> &SocketAddr { &self.remote_addr }
-
     pub fn password(&self) -> &str {
         &self.password
     }
@@ -146,7 +149,6 @@ impl Request {
     }
 
     pub fn payload(&self) -> Option<&[u8]> {
-        // str::from_utf8(self.slice(&self.payload)).unwrap()
         if self.payload.0 == 0 && self.payload.1 == 0 {
             None
         } else {
@@ -218,6 +220,7 @@ impl Request {
     // Extracts the data from the buffer at the given offset for the given length
     fn slice(&self, slice: &Slice) -> &[u8] {
         &self.data.as_slice()[slice.0..slice.1]
+        // &self.data.slice()[slice.0..slice.1]
     }
 }
 
@@ -244,7 +247,7 @@ fn combine_duplicates<I: Iterator<Item=(String, String)>>(collection: I) -> Hash
 }
 
 pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<Option<Request>> {
-    let (buffer, content_length, content_type, content_type_metadata, host, method, path, payload, query, scheme, uri, version, headers, amt) = {
+    let (content_length, content_type, content_type_metadata, host, method, path, payload, query, scheme, uri, version, headers, amt) = {
         let mut headers = [httparse::EMPTY_HEADER; 16];
         let mut r = httparse::Request::new(&mut headers);
         let status = try!(r.parse(buf.as_slice()).map_err(|e| {
@@ -268,26 +271,15 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         let scheme = String::from("http");  // Hardcoded for now!
         let host = r.header("host").unwrap_or("").to_string();
         let content_type: String;
+
         match r.method {
             Some("POST") | Some("PUT") => content_type = r.header("content-type").unwrap_or("application/octet-stream").to_string(),
             Some(_) => content_type = r.header("accept").unwrap_or("text/plain").to_string(),
             None => content_type = "application/octet-stream".to_string(),
         }
-        // let mut content_type_metadata: HashMap<&str, &str> = HashMap::new();
-        // match content_type.find(';') {
-        //     Some(index) => {
-        //         let metadata: Vec<&str> = content_type[index+1..].split_terminator(';').map(|value| value.trim()).collect();
-        //         for meta in metadata {
-        //             let meta_split: Vec<&str> = meta.split('=').collect();
-        //             if !meta_split.is_empty() {
-        //                 content_type_metadata.insert(meta_split[0], meta_split[1]);
-        //             }
-        //         }
-        //     },
-        //     None => {},
-        // }
 
         let mut content_type_metadata = String::new();
+
         match content_type.find(';') {
             Some(index) => {
                 content_type_metadata = content_type[index+1..].trim().to_string();
@@ -296,6 +288,7 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         }
 
         let content_length: usize = r.header("content-length").unwrap_or("0").parse::<usize>().unwrap_or(0);
+
         // Adjust `amt` to also include payload
         amt += content_length;
 
@@ -318,10 +311,7 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
 
         let uri = format!("{}://{}{}", scheme, host, uri_str);
 
-        let mut buffer: Buffer = Buffer::new();
-        buffer.write(&buf.as_slice()[payload.0..payload.1]);
-
-        (buffer,
+        (
          content_length,
          content_type,
          content_type_metadata, // if content_type_metadata.is_empty() {None} else {Some(content_type_metadata)},
@@ -337,11 +327,11 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
           .iter()
           .map(|h| (toslice(h.name.as_bytes()), toslice(h.value)))
           .collect(),
-         amt)
+         amt
+        )
     };
 
-    Ok(Request {
-        // buf_reader: buf_reader,
+    let res = Request {
         content_length: content_length,
         content_type: content_type,
         content_type_metadata: content_type_metadata,
@@ -357,10 +347,10 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         username: "".to_string(),
         version: version,
         headers: headers,
-        data: buf.drain_to(amt),
-        buffer: buffer,
-        // offset: 0,
-    }.into())
+        data: ReqReader::new(buf.drain_to(amt)),
+    };
+
+    Ok(Some(res))
 }
 
 impl<'req> Iterator for RequestHeaders<'req> {
@@ -376,8 +366,6 @@ impl<'req> Iterator for RequestHeaders<'req> {
 }
 
 // Multipart
-
-// impl<'r> HttpRequest for &'r mut Request {
 impl HttpRequest for Request {
     type Body = Self;
 
@@ -393,7 +381,7 @@ impl HttpRequest for Request {
         }
     }
 
-    fn body(self) -> Self {
+    fn body(self) -> Self::Body {
         self
     }
 }

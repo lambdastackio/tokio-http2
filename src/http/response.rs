@@ -36,11 +36,13 @@ impl Response {
     pub fn new() -> Response {
         let status = StatusCode::Ok;
 
-        Response {
+        let res = Response {
             headers: Headers::new(),
             body: Body::new(),
             status_message: StatusMessage::Custom(status.to_u16(), status.canonical_reason().unwrap_or("").to_string()),
-        }
+        };
+
+        res.with_header("Content-Length", "0")
     }
 
     #[inline]
@@ -66,6 +68,8 @@ impl Response {
         self
     }
 }
+
+// NOTE: May want to modify this to a different header write option...
 
 pub fn encode(res: Response, buf: &mut Vec<u8>) {
     let length = res.body.len();
