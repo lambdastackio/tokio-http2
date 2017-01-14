@@ -19,7 +19,7 @@
 // NOTE: This attribute only needs to be set once.
 #![doc(html_logo_url = "https://lambdastackio.github.io/static/images/lambdastack-200x200.png",
        html_favicon_url = "https://lambdastackio.github.io/static/images/favicon.ico",
-       html_root_url = "https://lambdastackio.github.io/tokio-http2/tokio-http2/index.html")]
+       html_root_url = "https://lambdastackio.github.io/tokio-http2/tokio_http2/index.html")]
 
 //! This library supplies the required modules to implement HTTP/2 which includes the HPACK header
 //! compression that includes the Huffman encoding/decoding features.

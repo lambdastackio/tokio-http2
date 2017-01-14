@@ -1,13 +1,13 @@
 [package]
 name = "tokio-http2"
-version = "0.1.4"
+version = "0.1.5"
 authors = ["Chris Jones"]
 license = "Apache-2.0"
 readme = "README.md"
 keywords = ["http2", "hpack", "http", "tls", "tokio"]
 repository = "https://github.com/lambdastackio/tokio-http2"
-homepage = "https://lambdastackio.github.io/tokio-http2/tokio-http2"
-documentation = "https://lambdastackio.github.io/tokio-http2/tokio-http2"
+homepage = "https://lambdastackio.github.io/tokio-http2/tokio_http2"
+documentation = "https://lambdastackio.github.io/tokio-http2/tokio_http2"
 description = """
 HTTP/1.1 Library (HTTP/2 coming soon) using Tokio Project (core, proto, service). Used with https://github.com/lambdastackio/httpd.
 """
