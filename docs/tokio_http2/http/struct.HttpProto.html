@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `HttpProto` struct in crate `tokio_http2`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, HttpProto">
+
+    <title>tokio_http2::http::HttpProto - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    <link rel="shortcut icon" href="https://lambdastackio.github.io/static/images/favicon.ico">
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        <a href='../../tokio_http2/index.html'><img src='https://lambdastackio.github.io/static/images/lambdastack-200x200.png' alt='logo' width='100'></a>
+        <p class='location'><a href='../index.html'>tokio_http2</a>::<wbr><a href='index.html'>http</a></p><script>window.sidebarCurrent = {name: 'HttpProto', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>tokio_http2</a>::<wbr><a href='index.html'>http</a>::<wbr><a class='struct' href=''>HttpProto</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a id='src-359' class='srclink' href='../../src/tokio_http2/src/http/mod.rs.html#30' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct HttpProto;</pre><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl ServerProto&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/net/tcp/struct.TcpStream.html' title='tokio_core::net::tcp::TcpStream'>TcpStream</a>&gt; for <a class='struct' href='../../tokio_http2/http/struct.HttpProto.html' title='tokio_http2::http::HttpProto'>HttpProto</a></code></span><span class='out-of-band'><div class='ghost'></div><a id='src-365' class='srclink' href='../../src/tokio_http2/src/http/mod.rs.html#39-50' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Request' class='type'><span id='Request.t' class='invisible'><code>type <a href='#associatedtype.Request' class='type'>Request</a> = <a class='struct' href='../../tokio_http2/struct.Request.html' title='tokio_http2::Request'>Request</a></code></span></h4>
+<div class='docblock'><p>Request messages.</p>
+</div><h4 id='associatedtype.Response' class='type'><span id='Response.t' class='invisible'><code>type <a href='#associatedtype.Response' class='type'>Response</a> = <a class='struct' href='../../tokio_http2/struct.Response.html' title='tokio_http2::Response'>Response</a></code></span></h4>
+<div class='docblock'><p>Response messages.</p>
+</div><h4 id='associatedtype.Transport' class='type'><span id='Transport.t' class='invisible'><code>type <a href='#associatedtype.Transport' class='type'>Transport</a> = <a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/io/frame/struct.Framed.html' title='tokio_core::io::frame::Framed'>Framed</a>&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/net/tcp/struct.TcpStream.html' title='tokio_core::net::tcp::TcpStream'>TcpStream</a>, <a class='struct' href='../../tokio_http2/http/struct.HttpCodec.html' title='tokio_http2::http::HttpCodec'>HttpCodec</a>&gt;</code></span></h4>
+<div class='docblock'><p>The message transport, which works with I/O objects of type <code>T</code>. <a href="#associatedtype.Transport">Read more</a></p>
+</div><h4 id='associatedtype.BindTransport' class='type'><span id='BindTransport.t' class='invisible'><code>type <a href='#associatedtype.BindTransport' class='type'>BindTransport</a> = <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/io/frame/struct.Framed.html' title='tokio_core::io::frame::Framed'>Framed</a>&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/net/tcp/struct.TcpStream.html' title='tokio_core::net::tcp::TcpStream'>TcpStream</a>, <a class='struct' href='../../tokio_http2/http/struct.HttpCodec.html' title='tokio_http2::http::HttpCodec'>HttpCodec</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>A future for initializing a transport from an I/O object. <a href="#associatedtype.BindTransport">Read more</a></p>
+</div><h4 id='method.bind_transport' class='method'><span id='bind_transport.v' class='invisible'><code>fn <a href='#method.bind_transport' class='fnname'>bind_transport</a>(&amp;self, io: <a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/net/tcp/struct.TcpStream.html' title='tokio_core::net::tcp::TcpStream'>TcpStream</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/std/io/error/type.Result.html' title='std::io::error::Result'>Result</a>&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/io/frame/struct.Framed.html' title='tokio_core::io::frame::Framed'>Framed</a>&lt;<a class='struct' href='https://docs.rs/tokio-core/0.1/tokio_core/net/tcp/struct.TcpStream.html' title='tokio_core::net::tcp::TcpStream'>TcpStream</a>, <a class='struct' href='../../tokio_http2/http/struct.HttpCodec.html' title='tokio_http2::http::HttpCodec'>HttpCodec</a>&gt;&gt;</code></span></h4>
+<div class='docblock'><p>Build a transport from the given I/O object, using <code>self</code> for any configuration. <a href="#tymethod.bind_transport">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "tokio_http2";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

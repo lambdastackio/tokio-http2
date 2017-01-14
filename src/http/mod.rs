@@ -39,7 +39,7 @@ impl HttpProto {
 impl ServerProto<TcpStream> for HttpProto {
     type Request = Request;
     type Response = Response;
-    type Error = io::Error;
+    // type Error = io::Error;
     type Transport = Framed<TcpStream, HttpCodec>;
     type BindTransport = io::Result<Framed<TcpStream, HttpCodec>>;
 

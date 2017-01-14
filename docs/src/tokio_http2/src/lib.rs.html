@@ -73,6 +73,49 @@
 <span id="29">29</span>
 <span id="30">30</span>
 <span id="31">31</span>
+<span id="32">32</span>
+<span id="33">33</span>
+<span id="34">34</span>
+<span id="35">35</span>
+<span id="36">36</span>
+<span id="37">37</span>
+<span id="38">38</span>
+<span id="39">39</span>
+<span id="40">40</span>
+<span id="41">41</span>
+<span id="42">42</span>
+<span id="43">43</span>
+<span id="44">44</span>
+<span id="45">45</span>
+<span id="46">46</span>
+<span id="47">47</span>
+<span id="48">48</span>
+<span id="49">49</span>
+<span id="50">50</span>
+<span id="51">51</span>
+<span id="52">52</span>
+<span id="53">53</span>
+<span id="54">54</span>
+<span id="55">55</span>
+<span id="56">56</span>
+<span id="57">57</span>
+<span id="58">58</span>
+<span id="59">59</span>
+<span id="60">60</span>
+<span id="61">61</span>
+<span id="62">62</span>
+<span id="63">63</span>
+<span id="64">64</span>
+<span id="65">65</span>
+<span id="66">66</span>
+<span id="67">67</span>
+<span id="68">68</span>
+<span id="69">69</span>
+<span id="70">70</span>
+<span id="71">71</span>
+<span id="72">72</span>
+<span id="73">73</span>
+<span id="74">74</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2016 LambdaStack All rights reserved.</span>
 <span class='comment'>//</span>
@@ -101,10 +144,53 @@
 <span class='doccomment'>//! compression that includes the Huffman encoding/decoding features.</span>
 
 <span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>bitflags</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span> <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>url</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>unicase</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rustc_serialize</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>byteorder</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>multipart</span>;
 
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>http2</span>;
-<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>hpack</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>cookie</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>futures</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>futures_cpupool</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>httparse</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>net2</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>time</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tokio_core</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tokio_proto</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tokio_service</span>;
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>tokio_tls</span>;
+
+<span class='comment'>// Leave these...</span>
+<span class='comment'>// pub mod http2;</span>
+<span class='comment'>// pub mod hpack;</span>
+
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>http</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>version</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>error</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>status</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>method</span>;
+<span class='kw'>pub</span> <span class='kw'>mod</span> <span class='ident'>router</span>;
+<span class='comment'>// pub mod tcp_server;  // NOTE: This file is from the tokio-proto project and modified to support handlers.</span>
+
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>status</span>::<span class='ident'>StatusCode</span>::{<span class='self'>self</span>, <span class='prelude-val'>Ok</span>, <span class='ident'>BadRequest</span>, <span class='ident'>NotFound</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>version</span>::<span class='ident'>HttpVersion</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>error</span>::{<span class='prelude-ty'>Result</span>, <span class='ident'>Error</span>};
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>url</span>::<span class='ident'>Url</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>method</span>::<span class='ident'>Method</span>;
+<span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>http</span>::{<span class='ident'>Request</span>, <span class='ident'>Response</span>};
+<span class='comment'>// pub use tcp_server::TcpServer;  // NOTE: See tcp_server comment</span>
+
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Body</span> <span class='op'>=</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>u8</span><span class='op'>&gt;</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ContentType</span> <span class='op'>=</span> <span class='ident'>String</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>ContentLength</span> <span class='op'>=</span> <span class='ident'>u64</span>;
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Headers</span> <span class='op'>=</span> <span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>String</span>, <span class='ident'>String</span>)<span class='op'>&gt;</span>;
+
+<span class='comment'>// NOTE: May want to add an `enum` of options as the second param for a Handler that allows for flexible options</span>
+<span class='comment'>// pub enum Options...</span>
+<span class='comment'>// (i.e., pub type Handler = fn(Request, Options) -&gt; Response;)</span>
+<span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>Handler</span> <span class='op'>=</span> <span class='kw'>fn</span>(<span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='ident'>Response</span>;
 </pre>
 </section>
     <section id='search' class="content hidden"></section>

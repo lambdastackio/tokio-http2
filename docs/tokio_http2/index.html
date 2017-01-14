@@ -47,26 +47,110 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#15-31' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#15-74' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This library supplies the required modules to implement HTTP/2 which includes the HPACK header
 compression that includes the Huffman encoding/decoding features.</p>
-</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+</div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
+<table><tr><td><code>pub use status::StatusCode::{<a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>self</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>Ok</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>BadRequest</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>NotFound</a>};</code></td></tr><tr><td><code>pub use version::<a class='enum' href='../tokio_http2/version/enum.HttpVersion.html' title='tokio_http2::version::HttpVersion'>HttpVersion</a>;</code></td></tr><tr><td><code>pub use error::{<a class='type' href='../tokio_http2/error/type.Result.html' title='tokio_http2::error::Result'>Result</a>, <a class='enum' href='../tokio_http2/error/enum.Error.html' title='tokio_http2::error::Error'>Error</a>};</code></td></tr><tr><td><code>pub use method::<a class='enum' href='../tokio_http2/method/enum.Method.html' title='tokio_http2::method::Method'>Method</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='hpack/index.html'
-                                  title='tokio_http2::hpack'>hpack</a></td>
+                           <td><a class='mod' href='error/index.html'
+                                  title='tokio_http2::error'>error</a></td>
                            <td class='docblock-short'>
-                                <p>This library module provides the required HPACK compression used for HTTP/2 headers.
-A module implementing HPACK functionality. Exposes a simple API for
-performing the encoding and decoding of header sets, according to the
-HPACK spec.</p>
+                                <p>Error and Result module.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='http2/index.html'
-                                  title='tokio_http2::http2'>http2</a></td>
+                           <td><a class='mod' href='http/index.html'
+                                  title='tokio_http2::http'>http</a></td>
                            <td class='docblock-short'>
-                                <p>This library module provides HTTP/2 parsing and buffer frames used for HTTP/2.</p>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='method/index.html'
+                                  title='tokio_http2::method'>method</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='router/index.html'
+                                  title='tokio_http2::router'>router</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='status/index.html'
+                                  title='tokio_http2::status'>status</a></td>
+                           <td class='docblock-short'>
+                                <p>HTTP status codes</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='version/index.html'
+                                  title='tokio_http2::version'>version</a></td>
+                           <td class='docblock-short'>
+                                <p>HTTP Versions enum</p>
+                           </td>
+                       </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Request.html'
+                                  title='tokio_http2::Request'>Request</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Response.html'
+                                  title='tokio_http2::Response'>Response</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Url.html'
+                                  title='tokio_http2::Url'>Url</a></td>
+                           <td class='docblock-short'>
+                                <p>A parsed URL record.</p>
+                           </td>
+                       </tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Body.html'
+                                  title='tokio_http2::Body'>Body</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ContentLength.html'
+                                  title='tokio_http2::ContentLength'>ContentLength</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.ContentType.html'
+                                  title='tokio_http2::ContentType'>ContentType</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Handler.html'
+                                  title='tokio_http2::Handler'>Handler</a></td>
+                           <td class='docblock-short'>
+                                
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='type' href='type.Headers.html'
+                                  title='tokio_http2::Headers'>Headers</a></td>
+                           <td class='docblock-short'>
+                                
                            </td>
                        </tr></table></section>
     <section id='search' class="content hidden"></section>

@@ -51,23 +51,24 @@ pub mod http;
 pub mod version;
 pub mod error;
 pub mod status;
+pub mod method;
+pub mod router;
+// pub mod tcp_server;  // NOTE: This file is from the tokio-proto project and modified to support handlers.
+
+pub use status::StatusCode::{self, Ok, BadRequest, NotFound};
+pub use version::HttpVersion;
+pub use error::{Result, Error};
+pub use url::Url;
+pub use method::Method;
+pub use http::{Request, Response};
+// pub use tcp_server::TcpServer;  // NOTE: See tcp_server comment
 
 pub type Body = Vec<u8>;
 pub type ContentType = String;
 pub type ContentLength = u64;
 pub type Headers = Vec<(String, String)>;
 
-pub use status::StatusCode::{self, Ok, BadRequest, NotFound};
-pub use version::HttpVersion;
-pub use error::{Result, Error};
-pub use url::Url;
-
-
-// pub mod method;
-// pub mod uri;
-// mod tcp_server;
-// mod service;
-// pub use method::Method::{self, Get, Head, Post, Delete};
-// pub use uri::RequestUri;
-// pub use service::{NewService, Service};
-// pub use tcp_server::{TcpServer, HttpService};
+// NOTE: May want to add an `enum` of options as the second param for a Handler that allows for flexible options
+// pub enum Options...
+// (i.e., pub type Handler = fn(Request, Options) -> Response;)
+pub type Handler = fn(Request) -> Response;

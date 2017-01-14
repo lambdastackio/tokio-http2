@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["hpack","This library module provides the required HPACK compression used for HTTP/2 headers. A module implementing HPACK functionality. Exposes a simple API for performing the encoding and decoding of header sets, according to the HPACK spec."],["http2","This library module provides HTTP/2 parsing and buffer frames used for HTTP/2."]]});

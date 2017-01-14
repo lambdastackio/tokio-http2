@@ -42,7 +42,7 @@ impl Response {
             status_message: StatusMessage::Custom(status.to_u16(), status.canonical_reason().unwrap_or("").to_string()),
         };
 
-        res.with_header("Content-Length", "0")
+        res
     }
 
     #[inline]

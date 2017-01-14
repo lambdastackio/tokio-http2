@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["RequestPath","Represents a path in HTTP sense (starting from `/`)"]]});

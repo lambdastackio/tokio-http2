@@ -22,6 +22,7 @@ use std::collections::HashMap;
 use std::collections::hash_map::Entry::*;
 use std::ops::DerefMut;
 use std::cmp;
+use std::str::FromStr;
 
 use tokio_core::io::{EasyBuf, EasyBufMut};
 use unicase::UniCase;
@@ -30,6 +31,8 @@ use url::form_urlencoded;
 
 use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
 use super::buffer::Buffer;
+use Method;
+use Handler;
 
 // Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.
 #[derive(Clone)]
@@ -68,6 +71,7 @@ impl Read for ReqReader {
 }
 
 // NB: Slice is used so as to quickly extract portions of the buffer and to not have to use lifetimes.
+// data: EasyBuf, - original data element below. Remove this comment later...
 
 #[derive(Clone)]
 pub struct Request {
@@ -89,8 +93,12 @@ pub struct Request {
     remote_addr: Option<SocketAddr>,
     headers: Vec<(Slice, Slice)>,
     data: ReqReader,
-    // data: EasyBuf,
+    /// Handler associated with the specific request or not None. If none then the application (server)
+    /// will handle it.
+    handler: Option<Handler>,
 }
+
+
 
 type Slice = (usize, usize);
 
@@ -136,8 +144,9 @@ impl Request {
         &self.host
     }
 
-    pub fn method(&self) -> &str {
-        str::from_utf8(self.slice(&self.method)).unwrap()
+    pub fn method(&self) -> Method {
+        let method = str::from_utf8(self.slice(&self.method)).unwrap();
+        Method::from_str(method).unwrap_or(Method::Get)
     }
 
     pub fn password(&self) -> &str {
@@ -224,6 +233,25 @@ impl Request {
     }
 }
 
+
+/// Extract header value using key. If not found or can't be converted to &str then None else the &str value.
+pub fn header<'a>(req: &'a mut httparse::Request, key: &str) -> Option<&'a str> {
+    let value: &str;
+
+    for h in req.headers.iter() {
+        if UniCase(h.name) == UniCase(key) {
+            value = str::from_utf8(h.value).unwrap_or("");
+            if value.is_empty() {
+                return None;
+            } else {
+                return Some(value);
+            }
+        }
+    }
+
+    None
+}
+
 impl fmt::Debug for Request {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         write!(f, "<HTTP Request {} {}>", self.method(), self.path())
@@ -269,12 +297,12 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         };
 
         let scheme = String::from("http");  // Hardcoded for now!
-        let host = r.header("host").unwrap_or("").to_string();
+        let host = header(&mut r, "host").unwrap_or("").to_string(); //r.header("host").unwrap_or("").to_string();
         let content_type: String;
 
         match r.method {
-            Some("POST") | Some("PUT") => content_type = r.header("content-type").unwrap_or("application/octet-stream").to_string(),
-            Some(_) => content_type = r.header("accept").unwrap_or("text/plain").to_string(),
+            Some("POST") | Some("PUT") => content_type = header(&mut r, "content-type").unwrap_or("application/octet-stream").to_string(),
+            Some(_) => content_type = header(&mut r, "accept").unwrap_or("text/plain").to_string(),
             None => content_type = "application/octet-stream".to_string(),
         }
 
@@ -287,7 +315,7 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
             None => {},
         }
 
-        let content_length: usize = r.header("content-length").unwrap_or("0").parse::<usize>().unwrap_or(0);
+        let content_length: usize = header(&mut r, "content-length").unwrap_or("0").parse::<usize>().unwrap_or(0);
 
         // Adjust `amt` to also include payload
         amt += content_length;
@@ -348,6 +376,7 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         version: version,
         headers: headers,
         data: ReqReader::new(buf.drain_to(amt)),
+        handler: None,
     };
 
     Ok(Some(res))
