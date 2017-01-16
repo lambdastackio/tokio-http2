@@ -22,6 +22,7 @@ use Handler;
 use super::builder::RouteBuilder;
 
 /// Holds route information
+#[derive(Clone)]
 pub struct Route {
     /// HTTP method to match
     pub method: Method,
@@ -31,7 +32,7 @@ pub struct Route {
 
     /// Request handler
     ///
-    /// This should be method that accepts Request and Response:
+    /// This should be method that accepts Request and responds with Response:
     ///
     pub handler: Handler
 }

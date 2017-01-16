@@ -101,7 +101,7 @@ impl Buffer {
     }
 
     pub fn write(&mut self, data: &[u8]) -> usize {
-        trace!("Buffer::write len = {:?}", data.len());
+        // trace!("Buffer::write len = {:?}", data.len());
         self.maybe_reserve(data.len());
         let len = cmp::min(self.available(), data.len());
         assert!(self.available() >= len);
@@ -123,12 +123,12 @@ impl Buffer {
         if cap == 0 {
             // first reserve
             let init = cmp::max(INIT_BUFFER_SIZE, needed);
-            trace!("reserving initial {}", init);
+            // trace!("reserving initial {}", init);
             self.vec = vec![0; init];
         } else if self.head > 0  && self.tail == cap && self.head >= needed {
             // there is space to shift over
             let count = self.tail - self.head;
-            trace!("moving buffer bytes over by {}", count);
+            // trace!("moving buffer bytes over by {}", count);
             unsafe {
                 ptr::copy(
                     self.vec.as_ptr().offset(self.head as isize),
@@ -141,7 +141,7 @@ impl Buffer {
         } else if self.tail == cap && cap < MAX_BUFFER_SIZE {
             self.vec.reserve(cmp::min(cap * 4, MAX_BUFFER_SIZE) - cap);
             let new = self.vec.capacity() - cap;
-            trace!("reserved {}", new);
+            // trace!("reserved {}", new);
             unsafe { grow_zerofill(&mut self.vec, new) }
         }
     }

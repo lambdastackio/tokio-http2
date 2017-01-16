@@ -14,20 +14,27 @@
 
 #![allow(dead_code)]
 
-use std::fmt::{self, Write};
+use std::{io, slice, str};
+use std::fmt::{self,Write};
+use std::str::FromStr;
 
+use unicase::UniCase;
 use http::date;
 use Body;
 use Headers;
 use StatusCode;
 
+#[derive(Clone, Debug)]
 pub struct Response {
-    headers: Headers,
-    body: Body,
-    status_message: StatusMessage,
+    pub headers: Headers,
+    pub body: Body,
+    pub status_message: StatusMessage,
+    pub code: u16,
+    pub message: String,
 }
 
-enum StatusMessage {
+#[derive(Clone, Debug)]
+pub enum StatusMessage {
     Ok,
     Custom(u16, String)
 }
@@ -40,6 +47,8 @@ impl Response {
             headers: Headers::new(),
             body: Body::new(),
             status_message: StatusMessage::Custom(status.to_u16(), status.canonical_reason().unwrap_or("").to_string()),
+            code: status.to_u16(),
+            message: status.canonical_reason().unwrap_or("").to_string(),
         };
 
         res
@@ -59,19 +68,37 @@ impl Response {
 
     #[inline]
     pub fn with_status(mut self, code: StatusCode) -> Self {
+        self.code = code.to_u16();
+        self.message = code.canonical_reason().clone().unwrap_or("").to_string();
         self.status_message = StatusMessage::Custom(code.to_u16(), code.canonical_reason().unwrap_or("").to_string());
         self
     }
 
     pub fn status_code(mut self, code: u16, message: &str) -> Self {
+        self.code = code;
+        self.message = message.clone().to_string();
         self.status_message = StatusMessage::Custom(code, message.to_string());
         self
+    }
+
+    pub fn content_length(&self) -> u64 {
+        match self.header("content-length") {
+            Some(len) => len.parse::<u64>().unwrap_or(0),
+            None => 0,
+        }
+    }
+
+    pub fn header(&self, key: &str) -> Option<&str> {
+        match self.headers.iter().find(|&&(ref k, ref v)| UniCase(k) == UniCase(key)) {
+            Some(&(ref key, ref value)) => Some(str::from_utf8(value.as_bytes()).unwrap_or("")),
+            None => None
+        }
     }
 }
 
 // NOTE: May want to modify this to a different header write option...
 
-pub fn encode(res: Response, buf: &mut Vec<u8>) {
+pub fn encode(res: &Response, buf: &mut Vec<u8>) {
     let length = res.body.len();
     let now = date::now();
 

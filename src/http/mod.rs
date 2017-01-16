@@ -19,6 +19,13 @@ use std::net::SocketAddr;
 use tokio_proto::pipeline::ServerProto;
 use tokio_core::io::{Io, Codec, Framed, EasyBuf};
 
+use tokio_tls::TlsAcceptorExt;
+use native_tls::{Pkcs12, TlsAcceptor, TlsStream};
+
+use Router;
+use Logger;
+use LoggerLevel;
+
 pub use self::request::Request;
 pub use self::response::Response;
 
@@ -27,44 +34,85 @@ mod request;
 mod response;
 pub mod buffer;
 
-pub struct HttpProto;
+/// Proto and Codec can have STATE so you can add features to these two and then pass them to
+/// TcpServer.
+#[derive(Default)]
+pub struct HttpProto {
+    pub logger: Option<Logger>,
+    pub router: Option<Router>,
+    pub base_path: String,
+}
 
 // codec here so as to create a Codec that can handle a remote_addr field.
 impl HttpProto {
-    fn codec(&self, remote_addr: SocketAddr) -> HttpCodec {
-        HttpCodec{ remote_addr: Some(remote_addr) }
+    fn codec(&self, remote_addr: SocketAddr, router: Option<Router>, logger: Option<Logger>, base_path: String) -> HttpCodec {
+        HttpCodec{ request: None, remote_addr: Some(remote_addr), router: router, logger: logger, base_path: base_path }
     }
 }
 
 impl ServerProto<TcpStream> for HttpProto {
     type Request = Request;
     type Response = Response;
-    // type Error = io::Error;
     type Transport = Framed<TcpStream, HttpCodec>;
     type BindTransport = io::Result<Framed<TcpStream, HttpCodec>>;
 
     fn bind_transport(&self, io: TcpStream) -> io::Result<Framed<TcpStream, HttpCodec>> {
         let addr = io.peer_addr()?;
-        Ok(io.framed(self.codec(addr)))
+        Ok(io.framed(self.codec(addr, self.router.clone(), self.logger.clone(), self.base_path.clone())))
     }
 }
 
 // remote_addr is passed to the decode function to be added to the Request struct that eventually
 // gets passed to the Service call method in the server application.
 pub struct HttpCodec {
+    request: Option<Request>,
     remote_addr: Option<SocketAddr>,
+    router: Option<Router>,
+    logger: Option<Logger>,
+    base_path: String,
 }
 
 impl Codec for HttpCodec {
     type In = Request;
     type Out = Response;
 
+    /// HttpCodec::decode can be modified to fit whatever is needed.
     fn decode(&mut self, buf: &mut EasyBuf) -> io::Result<Option<Request>> {
-        request::decode(buf, self.remote_addr)
+        match request::decode(buf, self.remote_addr, self.router.clone(), self.logger.clone(), self.base_path.clone()) {
+            Ok(req) => {
+                match req {
+                    Some(req) => {
+                        self.request = Some(req.clone());
+                        Ok(Some(req))
+                    }
+                    None => Ok(None)
+                }
+            }
+            Err(e) => Err(e)
+        }
     }
 
     fn encode(&mut self, msg: Response, buf: &mut Vec<u8>) -> io::Result<()> {
-        response::encode(msg, buf);
+        response::encode(&msg, buf);
+        if self.logger.is_some() {
+            let logger = self.logger.clone().unwrap();
+            let request = self.request.clone().unwrap();
+            let referrer = "-"; //Check header
+            let mut remote_addr = "-".to_string();
+            match self.remote_addr {
+                Some(val) => remote_addr = format!("{}", val),
+                None => {},
+            }
+            logger.write(
+                LoggerLevel::Info,
+                format!("{} - \"{}\" {} {} \"{}\" \"{}\"",
+                remote_addr,
+                request.request_line(),
+                msg.code,
+                msg.content_length(),
+                referrer,
+                request.user_agent().unwrap_or("-")));
+        }
         Ok(())
     }
 }

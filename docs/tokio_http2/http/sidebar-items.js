@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["buffer",""]],"struct":[["HttpCodec",""],["HttpProto",""],["Request",""],["Response",""]]});
+initSidebarItems({"mod":[["buffer",""]],"struct":[["HttpCodec",""],["HttpProto","Proto and Codec can have STATE so you can add features to these two and then pass them to TcpServer."],["Request",""],["Response",""]]});

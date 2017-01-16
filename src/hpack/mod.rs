@@ -15,6 +15,7 @@
 #![allow(unused_imports)]
 #![allow(unused_mut)]
 #![allow(unused_variables)]
+#![allow(dead_code)]
 
 //! This library module provides the required HPACK compression used for HTTP/2 headers.
 
@@ -157,12 +158,12 @@ impl DynamicTable {
         // a magic number determined by them (under reasonable assumptions of
         // how the table is stored).
         self.size += name.len() + value.len() + 32;
-        debug!("New dynamic table size {}", self.size);
+        // debug!("New dynamic table size {}", self.size);
         // Now add it to the internal buffer
         self.table.push_front((name, value));
         // ...and make sure we're not over the maximum size.
         self.consolidate_table();
-        debug!("After consolidation dynamic table size {}", self.size);
+        // debug!("After consolidation dynamic table size {}", self.size);
     }
 
     /// Consolidates the table entries so that the table size is below the

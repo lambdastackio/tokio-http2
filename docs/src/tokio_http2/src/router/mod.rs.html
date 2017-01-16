@@ -142,6 +142,28 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
+<span id="119">119</span>
+<span id="120">120</span>
+<span id="121">121</span>
+<span id="122">122</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2016 LambdaStack All rights reserved.</span>
 <span class='comment'>//</span>
@@ -176,13 +198,20 @@
 <span class='kw'>pub</span> <span class='kw'>type</span> <span class='ident'>HttpResult</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='ident'>T</span>, <span class='ident'>StatusCode</span><span class='op'>&gt;</span>;
 
 <span class='doccomment'>/// This is the one. The router.</span>
-<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>)]</span>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Debug</span>, <span class='ident'>Clone</span>)]</span>
 <span class='kw'>pub</span> <span class='kw'>struct</span> <span class='ident'>Router</span> {
-    <span class='ident'>routes</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Route</span><span class='op'>&gt;</span>
+    <span class='kw'>pub</span> <span class='ident'>routes</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='ident'>Route</span><span class='op'>&gt;</span>
 }
 
 <span class='kw'>impl</span> <span class='ident'>Router</span> {
-    <span class='doccomment'>/// Finds handler for given request.</span>
+    <span class='doccomment'>/// Create a default Router.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// Returns a newly created Router.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>new</span>() <span class='op'>-&gt;</span> <span class='ident'>Router</span> {
+        <span class='ident'>Router</span>{ <span class='ident'>routes</span>: <span class='ident'>Vec</span>::<span class='ident'>new</span>() }
+    }
+
+    <span class='doccomment'>/// Finds handler for given Request.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// This method uses default error handlers.</span>
     <span class='doccomment'>/// If the request does not match any route than default 404 handler is returned.</span>
@@ -204,31 +233,46 @@
         <span class='comment'>// }</span>
     }
 
-    <span class='doccomment'>/// Finds handler for given Hyper request.</span>
+    <span class='doccomment'>/// Finds handler for given Request.</span>
     <span class='doccomment'>///</span>
     <span class='doccomment'>/// It returns handler if it&#39;s found or `StatusCode` for error.</span>
     <span class='doccomment'>/// This method may return `NotFound`, `MethodNotAllowed` or `NotImplemented`</span>
     <span class='doccomment'>/// status codes.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>request</span>: <span class='kw-2'>&amp;</span><span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='ident'>HttpResult</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>request</span>: <span class='kw-2'>&amp;</span><span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> { <span class='comment'>//HttpResult&lt;Handler&gt; {</span>
         <span class='comment'>//if let AbsolutePath(request_path) = request.uri().clone() {</span>
         <span class='comment'>// if let Some(request_path) = request.path() {</span>
         <span class='kw'>let</span> <span class='ident'>request_path</span> <span class='op'>=</span> <span class='ident'>request</span>.<span class='ident'>path</span>();
         <span class='kw'>let</span> <span class='ident'>matching_routes</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>find_matching_routes</span>(<span class='kw-2'>&amp;</span><span class='ident'>request_path</span>);
         <span class='kw'>match</span> <span class='ident'>matching_routes</span>.<span class='ident'>len</span>() {
-            <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Err</span>(<span class='ident'>StatusCode</span>::<span class='ident'>NotFound</span>),
+            <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>, <span class='comment'>//Err(StatusCode::NotFound),</span>
             _ <span class='op'>=&gt;</span> {
                 <span class='self'>self</span>.<span class='ident'>find_for_method</span>(<span class='kw-2'>&amp;</span><span class='ident'>matching_routes</span>, <span class='kw-2'>&amp;</span><span class='ident'>request</span>.<span class='ident'>method</span>())
-                    .<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>handler</span><span class='op'>|</span> <span class='prelude-val'>Ok</span>(<span class='ident'>handler</span>))
-                    .<span class='ident'>unwrap_or</span>(<span class='prelude-val'>Err</span>(<span class='ident'>StatusCode</span>::<span class='ident'>MethodNotAllowed</span>))
-            }
+                    <span class='comment'>// .map(|handler| Ok(handler))</span>
+                    <span class='comment'>// .unwrap_or(Err(StatusCode::MethodNotAllowed))</span>
+            },
         }
         <span class='comment'>// } else {</span>
         <span class='comment'>//     Err(StatusCode::NotImplemented)</span>
         <span class='comment'>// }</span>
     }
 
+    <span class='doccomment'>/// Finds handler for given &amp;str path.</span>
+    <span class='doccomment'>///</span>
+    <span class='doccomment'>/// It returns handler if it&#39;s found or `StatusCode` for error.</span>
+    <span class='doccomment'>/// This method may return `NotFound`, `MethodNotAllowed` or `NotImplemented`</span>
+    <span class='doccomment'>/// status codes.</span>
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_handler_with_method_and_path</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>method</span>: <span class='ident'>Method</span>, <span class='ident'>request_path</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> {
+        <span class='kw'>let</span> <span class='ident'>matching_routes</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='ident'>find_matching_routes</span>(<span class='ident'>request_path</span>);
+        <span class='kw'>match</span> <span class='ident'>matching_routes</span>.<span class='ident'>len</span>() {
+            <span class='ident'>x</span> <span class='kw'>if</span> <span class='ident'>x</span> <span class='op'>&lt;=</span> <span class='number'>0</span> <span class='op'>=&gt;</span> <span class='prelude-val'>None</span>,
+            _ <span class='op'>=&gt;</span> {
+                <span class='self'>self</span>.<span class='ident'>find_for_method</span>(<span class='kw-2'>&amp;</span><span class='ident'>matching_routes</span>, <span class='kw-2'>&amp;</span><span class='ident'>method</span>)
+            },
+        }
+    }
+
     <span class='doccomment'>/// Returns vector of `Route`s that match to given path.</span>
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_matching_routes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>request_path</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Route</span><span class='op'>&gt;</span> {
+    <span class='kw'>fn</span> <span class='ident'>find_matching_routes</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>request_path</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='ident'>Vec</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Route</span><span class='op'>&gt;</span> {
         <span class='self'>self</span>.<span class='ident'>routes</span>.<span class='ident'>iter</span>()
             .<span class='ident'>filter</span>(<span class='op'>|</span><span class='ident'>route</span><span class='op'>|</span> {
                 <span class='ident'>route</span>.<span class='ident'>path</span>.<span class='ident'>matcher</span>.<span class='ident'>is_match</span>(<span class='kw-2'>&amp;</span><span class='ident'>request_path</span>)
@@ -236,7 +280,7 @@
             .<span class='ident'>collect</span>()
     }
 
-    <span class='kw'>fn</span> <span class='ident'>find_for_method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>routes</span>: <span class='kw-2'>&amp;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Route</span><span class='op'>&gt;</span>, <span class='ident'>method</span>: <span class='kw-2'>&amp;</span><span class='ident'>Method</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>find_for_method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>routes</span>: <span class='kw-2'>&amp;</span><span class='ident'>Vec</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>Route</span><span class='op'>&gt;</span>, <span class='ident'>method</span>: <span class='kw-2'>&amp;</span><span class='ident'>Method</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> {
         <span class='kw'>let</span> <span class='ident'>method</span> <span class='op'>=</span> <span class='ident'>method</span>.<span class='ident'>clone</span>();
         <span class='ident'>routes</span>.<span class='ident'>iter</span>()
             .<span class='ident'>find</span>(<span class='op'>|</span><span class='ident'>route</span><span class='op'>|</span> <span class='ident'>route</span>.<span class='ident'>method</span> <span class='op'>==</span> <span class='ident'>method</span>)

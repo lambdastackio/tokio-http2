@@ -458,6 +458,46 @@
 <span id="414">414</span>
 <span id="415">415</span>
 <span id="416">416</span>
+<span id="417">417</span>
+<span id="418">418</span>
+<span id="419">419</span>
+<span id="420">420</span>
+<span id="421">421</span>
+<span id="422">422</span>
+<span id="423">423</span>
+<span id="424">424</span>
+<span id="425">425</span>
+<span id="426">426</span>
+<span id="427">427</span>
+<span id="428">428</span>
+<span id="429">429</span>
+<span id="430">430</span>
+<span id="431">431</span>
+<span id="432">432</span>
+<span id="433">433</span>
+<span id="434">434</span>
+<span id="435">435</span>
+<span id="436">436</span>
+<span id="437">437</span>
+<span id="438">438</span>
+<span id="439">439</span>
+<span id="440">440</span>
+<span id="441">441</span>
+<span id="442">442</span>
+<span id="443">443</span>
+<span id="444">444</span>
+<span id="445">445</span>
+<span id="446">446</span>
+<span id="447">447</span>
+<span id="448">448</span>
+<span id="449">449</span>
+<span id="450">450</span>
+<span id="451">451</span>
+<span id="452">452</span>
+<span id="453">453</span>
+<span id="454">454</span>
+<span id="455">455</span>
+<span id="456">456</span>
 </pre><pre class='rust '>
 <span class='comment'>// Copyright 2016 LambdaStack All rights reserved.</span>
 <span class='comment'>//</span>
@@ -494,8 +534,10 @@
 <span class='kw'>use</span> <span class='kw'>super</span>::<span class='ident'>buffer</span>::<span class='ident'>Buffer</span>;
 <span class='kw'>use</span> <span class='ident'>Method</span>;
 <span class='kw'>use</span> <span class='ident'>Handler</span>;
+<span class='kw'>use</span> <span class='ident'>Router</span>;
+<span class='kw'>use</span> <span class='ident'>Logger</span>;
 
-<span class='comment'>// Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.</span>
+<span class='doccomment'>/// Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.</span>
 <span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>Clone</span>)]</span>
 <span class='kw'>struct</span> <span class='ident'>ReqReader</span> {
     <span class='ident'>inner</span>: <span class='ident'>EasyBuf</span>,
@@ -547,6 +589,7 @@
     <span class='ident'>path</span>: <span class='ident'>Slice</span>,
     <span class='ident'>payload</span>: <span class='ident'>Slice</span>,
     <span class='ident'>query</span>: <span class='ident'>Slice</span>,
+    <span class='ident'>request_line</span>: <span class='ident'>String</span>,
     <span class='ident'>scheme</span>: <span class='ident'>String</span>,
     <span class='ident'>uri</span>: <span class='ident'>String</span>,
     <span class='ident'>username</span>: <span class='ident'>String</span>,
@@ -554,12 +597,14 @@
     <span class='ident'>remote_addr</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>SocketAddr</span><span class='op'>&gt;</span>,
     <span class='ident'>headers</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>(<span class='ident'>Slice</span>, <span class='ident'>Slice</span>)<span class='op'>&gt;</span>,
     <span class='ident'>data</span>: <span class='ident'>ReqReader</span>,
-    <span class='doccomment'>/// Handler associated with the specific request or not None. If none then the application (server)</span>
-    <span class='doccomment'>/// will handle it.</span>
+    <span class='doccomment'>/// Handler associated with the specific request. If none then the application (server)</span>
+    <span class='doccomment'>/// will handle it in it&#39;s default routing.</span>
     <span class='ident'>handler</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// Optional Logger associated with a given request</span>
+    <span class='kw'>pub</span> <span class='ident'>logger</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Logger</span><span class='op'>&gt;</span>,
+    <span class='doccomment'>/// Base path is used to hold the actual base directory location on the server of the request.</span>
+    <span class='kw'>pub</span> <span class='ident'>base_path</span>: <span class='ident'>String</span>,
 }
-
-
 
 <span class='kw'>type</span> <span class='ident'>Slice</span> <span class='op'>=</span> (<span class='ident'>usize</span>, <span class='ident'>usize</span>);
 
@@ -603,6 +648,10 @@
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>host</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
         <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>host</span>
+    }
+
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>handler</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>handler</span>
     }
 
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>method</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='ident'>Method</span> {
@@ -661,11 +710,19 @@
         <span class='self'>self</span>.<span class='ident'>remote_addr</span>
     }
 
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>request_line</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
+        <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>request_line</span>
+    }
+
     <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>uri</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
         <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>uri</span>
     }
 
-    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>username</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>user_agent</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='ident'>str</span><span class='op'>&gt;</span> {
+        <span class='self'>self</span>.<span class='ident'>header</span>(<span class='string'>&quot;user-agent&quot;</span>)
+    }
+
+    <span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>user_name</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='ident'>str</span> {
         <span class='kw-2'>&amp;</span><span class='self'>self</span>.<span class='ident'>username</span>
     }
 
@@ -695,8 +752,8 @@
 }
 
 
-<span class='doccomment'>/// Extract header value using key. If not found or can&#39;t be converted to &amp;str then None else the &amp;str value.</span>
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>header</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>req</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>httparse</span>::<span class='ident'>Request</span>, <span class='ident'>key</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span> {
+<span class='comment'>// Extract header value using key. If not found or can&#39;t be converted to &amp;str then None else the &amp;str value.</span>
+<span class='kw'>fn</span> <span class='ident'>header</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>req</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='kw-2'>mut</span> <span class='ident'>httparse</span>::<span class='ident'>Request</span>, <span class='ident'>key</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>str</span><span class='op'>&gt;</span> {
     <span class='kw'>let</span> <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='ident'>str</span>;
 
     <span class='kw'>for</span> <span class='ident'>h</span> <span class='kw'>in</span> <span class='ident'>req</span>.<span class='ident'>headers</span>.<span class='ident'>iter</span>() {
@@ -735,8 +792,17 @@
     <span class='ident'>deduplicated</span>
 }
 
-<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>decode</span>(<span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>EasyBuf</span>, <span class='ident'>remote_addr</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>SocketAddr</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Request</span><span class='op'>&gt;&gt;</span> {
-    <span class='kw'>let</span> (<span class='ident'>content_length</span>, <span class='ident'>content_type</span>, <span class='ident'>content_type_metadata</span>, <span class='ident'>host</span>, <span class='ident'>method</span>, <span class='ident'>path</span>, <span class='ident'>payload</span>, <span class='ident'>query</span>, <span class='ident'>scheme</span>, <span class='ident'>uri</span>, <span class='ident'>version</span>, <span class='ident'>headers</span>, <span class='ident'>amt</span>) <span class='op'>=</span> {
+<span class='doccomment'>/// Decode is a stand alone function since it creates the Request struct.</span>
+<span class='doccomment'>/// EasyBuf is from Tokio-core and is used for handling slices without having to create additional buffers.</span>
+<span class='doccomment'>/// Because of the slices, the methods used the begin and end parts of the Slice to determine where</span>
+<span class='doccomment'>/// to extract from the lower level EasyBuf.</span>
+<span class='kw'>pub</span> <span class='kw'>fn</span> <span class='ident'>decode</span>(<span class='ident'>buf</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>EasyBuf</span>,
+              <span class='ident'>remote_addr</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>SocketAddr</span><span class='op'>&gt;</span>,
+              <span class='ident'>router</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Router</span><span class='op'>&gt;</span>,
+              <span class='ident'>logger</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Logger</span><span class='op'>&gt;</span>,
+              <span class='ident'>base_path</span>: <span class='ident'>String</span>)
+              <span class='op'>-&gt;</span> <span class='ident'>io</span>::<span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Request</span><span class='op'>&gt;&gt;</span> {
+    <span class='kw'>let</span> (<span class='ident'>content_length</span>, <span class='ident'>content_type</span>, <span class='ident'>content_type_metadata</span>, <span class='ident'>handler</span>, <span class='ident'>host</span>, <span class='ident'>method</span>, <span class='ident'>path</span>, <span class='ident'>payload</span>, <span class='ident'>query</span>, <span class='ident'>request_line</span>, <span class='ident'>scheme</span>, <span class='ident'>uri</span>, <span class='ident'>version</span>, <span class='ident'>headers</span>, <span class='ident'>amt</span>) <span class='op'>=</span> {
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>headers</span> <span class='op'>=</span> [<span class='ident'>httparse</span>::<span class='ident'>EMPTY_HEADER</span>; <span class='number'>16</span>];
         <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>r</span> <span class='op'>=</span> <span class='ident'>httparse</span>::<span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>headers</span>);
         <span class='kw'>let</span> <span class='ident'>status</span> <span class='op'>=</span> <span class='macro'>try</span><span class='macro'>!</span>(<span class='ident'>r</span>.<span class='ident'>parse</span>(<span class='ident'>buf</span>.<span class='ident'>as_slice</span>()).<span class='ident'>map_err</span>(<span class='op'>|</span><span class='ident'>e</span><span class='op'>|</span> {
@@ -757,8 +823,8 @@
             (<span class='ident'>start</span>, <span class='ident'>start</span> <span class='op'>+</span> <span class='ident'>a</span>.<span class='ident'>len</span>())
         };
 
-        <span class='kw'>let</span> <span class='ident'>scheme</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='string'>&quot;http&quot;</span>);  <span class='comment'>// Hardcoded for now!</span>
-        <span class='kw'>let</span> <span class='ident'>host</span> <span class='op'>=</span> <span class='ident'>header</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='string'>&quot;host&quot;</span>).<span class='ident'>unwrap_or</span>(<span class='string'>&quot;&quot;</span>).<span class='ident'>to_string</span>(); <span class='comment'>//r.header(&quot;host&quot;).unwrap_or(&quot;&quot;).to_string();</span>
+        <span class='kw'>let</span> <span class='ident'>scheme</span> <span class='op'>=</span> <span class='ident'>String</span>::<span class='ident'>from</span>(<span class='string'>&quot;http&quot;</span>);  <span class='comment'>// TODO: Hardcoded for now!</span>
+        <span class='kw'>let</span> <span class='ident'>host</span> <span class='op'>=</span> <span class='ident'>header</span>(<span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>r</span>, <span class='string'>&quot;host&quot;</span>).<span class='ident'>unwrap_or</span>(<span class='string'>&quot;&quot;</span>).<span class='ident'>to_string</span>();
         <span class='kw'>let</span> <span class='ident'>content_type</span>: <span class='ident'>String</span>;
 
         <span class='kw'>match</span> <span class='ident'>r</span>.<span class='ident'>method</span> {
@@ -800,15 +866,26 @@
 
         <span class='kw'>let</span> <span class='ident'>uri</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}://{}{}&quot;</span>, <span class='ident'>scheme</span>, <span class='ident'>host</span>, <span class='ident'>uri_str</span>);
 
+        <span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>handler</span>: <span class='prelude-ty'>Option</span><span class='op'>&lt;</span><span class='ident'>Handler</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='prelude-val'>None</span>;
+        <span class='kw'>if</span> <span class='ident'>router</span>.<span class='ident'>is_some</span>() {
+            <span class='kw'>let</span> <span class='ident'>m</span> <span class='op'>=</span> <span class='ident'>Method</span>::<span class='ident'>from_str</span>(<span class='ident'>r</span>.<span class='ident'>method</span>.<span class='ident'>unwrap</span>()).<span class='ident'>unwrap</span>();
+            <span class='kw'>let</span> <span class='ident'>p</span> <span class='op'>=</span> <span class='ident'>str</span>::<span class='ident'>from_utf8</span>(<span class='kw-2'>&amp;</span><span class='ident'>buf</span>.<span class='ident'>as_slice</span>()[<span class='ident'>path</span>.<span class='number'>0</span>..<span class='ident'>path</span>.<span class='number'>1</span>]).<span class='ident'>unwrap_or</span>(<span class='string'>&quot;&quot;</span>);
+            <span class='ident'>handler</span> <span class='op'>=</span> <span class='ident'>router</span>.<span class='ident'>unwrap</span>().<span class='ident'>find_handler_with_method_and_path</span>(<span class='ident'>m</span>, <span class='ident'>p</span>);
+        }
+
+        <span class='kw'>let</span> <span class='ident'>request_line</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{} {} HTTP/1.{}&quot;</span>, <span class='ident'>r</span>.<span class='ident'>method</span>.<span class='ident'>unwrap</span>(), <span class='ident'>r</span>.<span class='ident'>path</span>.<span class='ident'>unwrap_or</span>(<span class='string'>&quot;&quot;</span>), <span class='ident'>r</span>.<span class='ident'>version</span>.<span class='ident'>unwrap</span>());
+
         (
          <span class='ident'>content_length</span>,
          <span class='ident'>content_type</span>,
-         <span class='ident'>content_type_metadata</span>, <span class='comment'>// if content_type_metadata.is_empty() {None} else {Some(content_type_metadata)},</span>
+         <span class='ident'>content_type_metadata</span>,
+         <span class='ident'>handler</span>,
          <span class='ident'>host</span>,
          <span class='ident'>method</span>,
          <span class='ident'>path</span>,
          <span class='ident'>payload</span>,
          <span class='ident'>query</span>,
+         <span class='ident'>request_line</span>,
          <span class='ident'>scheme</span>,
          <span class='ident'>uri</span>,
          <span class='ident'>r</span>.<span class='ident'>version</span>.<span class='ident'>unwrap</span>(),
@@ -821,6 +898,7 @@
     };
 
     <span class='kw'>let</span> <span class='ident'>res</span> <span class='op'>=</span> <span class='ident'>Request</span> {
+        <span class='ident'>base_path</span>: <span class='ident'>base_path</span>,
         <span class='ident'>content_length</span>: <span class='ident'>content_length</span>,
         <span class='ident'>content_type</span>: <span class='ident'>content_type</span>,
         <span class='ident'>content_type_metadata</span>: <span class='ident'>content_type_metadata</span>,
@@ -831,13 +909,15 @@
         <span class='ident'>payload</span>: <span class='ident'>payload</span>,
         <span class='ident'>query</span>: <span class='ident'>query</span>,
         <span class='ident'>remote_addr</span>: <span class='ident'>remote_addr</span>,
+        <span class='ident'>request_line</span>: <span class='ident'>request_line</span>,
         <span class='ident'>scheme</span>: <span class='ident'>scheme</span>,
         <span class='ident'>uri</span>: <span class='ident'>uri</span>,
         <span class='ident'>username</span>: <span class='string'>&quot;&quot;</span>.<span class='ident'>to_string</span>(),
         <span class='ident'>version</span>: <span class='ident'>version</span>,
         <span class='ident'>headers</span>: <span class='ident'>headers</span>,
         <span class='ident'>data</span>: <span class='ident'>ReqReader</span>::<span class='ident'>new</span>(<span class='ident'>buf</span>.<span class='ident'>drain_to</span>(<span class='ident'>amt</span>)),
-        <span class='ident'>handler</span>: <span class='prelude-val'>None</span>,
+        <span class='ident'>handler</span>: <span class='ident'>handler</span>,
+        <span class='ident'>logger</span>: <span class='ident'>logger</span>,
     };
 
     <span class='prelude-val'>Ok</span>(<span class='prelude-val'>Some</span>(<span class='ident'>res</span>))

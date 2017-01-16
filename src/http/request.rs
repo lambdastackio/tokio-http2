@@ -33,8 +33,10 @@ use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
 use super::buffer::Buffer;
 use Method;
 use Handler;
+use Router;
+use Logger;
 
-// Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.
+/// Just a reader - Created to enforce the Read trait and to leave the under lying EasyBuf alone.
 #[derive(Clone)]
 struct ReqReader {
     inner: EasyBuf,
@@ -86,6 +88,7 @@ pub struct Request {
     path: Slice,
     payload: Slice,
     query: Slice,
+    request_line: String,
     scheme: String,
     uri: String,
     username: String,
@@ -93,12 +96,14 @@ pub struct Request {
     remote_addr: Option<SocketAddr>,
     headers: Vec<(Slice, Slice)>,
     data: ReqReader,
-    /// Handler associated with the specific request or not None. If none then the application (server)
-    /// will handle it.
+    /// Handler associated with the specific request. If none then the application (server)
+    /// will handle it in it's default routing.
     handler: Option<Handler>,
+    /// Optional Logger associated with a given request
+    pub logger: Option<Logger>,
+    /// Base path is used to hold the actual base directory location on the server of the request.
+    pub base_path: String,
 }
-
-
 
 type Slice = (usize, usize);
 
@@ -142,6 +147,10 @@ impl Request {
 
     pub fn host(&self) -> &str {
         &self.host
+    }
+
+    pub fn handler(&self) -> Option<Handler> {
+        self.handler
     }
 
     pub fn method(&self) -> Method {
@@ -200,11 +209,19 @@ impl Request {
         self.remote_addr
     }
 
+    pub fn request_line(&self) -> &str {
+        &self.request_line
+    }
+
     pub fn uri(&self) -> &str {
         &self.uri
     }
 
-    pub fn username(&self) -> &str {
+    pub fn user_agent(&self) -> Option<&str> {
+        self.header("user-agent")
+    }
+
+    pub fn user_name(&self) -> &str {
         &self.username
     }
 
@@ -234,8 +251,8 @@ impl Request {
 }
 
 
-/// Extract header value using key. If not found or can't be converted to &str then None else the &str value.
-pub fn header<'a>(req: &'a mut httparse::Request, key: &str) -> Option<&'a str> {
+// Extract header value using key. If not found or can't be converted to &str then None else the &str value.
+fn header<'a>(req: &'a mut httparse::Request, key: &str) -> Option<&'a str> {
     let value: &str;
 
     for h in req.headers.iter() {
@@ -274,8 +291,17 @@ fn combine_duplicates<I: Iterator<Item=(String, String)>>(collection: I) -> Hash
     deduplicated
 }
 
-pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<Option<Request>> {
-    let (content_length, content_type, content_type_metadata, host, method, path, payload, query, scheme, uri, version, headers, amt) = {
+/// Decode is a stand alone function since it creates the Request struct.
+/// EasyBuf is from Tokio-core and is used for handling slices without having to create additional buffers.
+/// Because of the slices, the methods used the begin and end parts of the Slice to determine where
+/// to extract from the lower level EasyBuf.
+pub fn decode(buf: &mut EasyBuf,
+              remote_addr: Option<SocketAddr>,
+              router: Option<Router>,
+              logger: Option<Logger>,
+              base_path: String)
+              -> io::Result<Option<Request>> {
+    let (content_length, content_type, content_type_metadata, handler, host, method, path, payload, query, request_line, scheme, uri, version, headers, amt) = {
         let mut headers = [httparse::EMPTY_HEADER; 16];
         let mut r = httparse::Request::new(&mut headers);
         let status = try!(r.parse(buf.as_slice()).map_err(|e| {
@@ -296,8 +322,8 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
             (start, start + a.len())
         };
 
-        let scheme = String::from("http");  // Hardcoded for now!
-        let host = header(&mut r, "host").unwrap_or("").to_string(); //r.header("host").unwrap_or("").to_string();
+        let scheme = String::from("http");  // TODO: Hardcoded for now!
+        let host = header(&mut r, "host").unwrap_or("").to_string();
         let content_type: String;
 
         match r.method {
@@ -339,15 +365,26 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
 
         let uri = format!("{}://{}{}", scheme, host, uri_str);
 
+        let mut handler: Option<Handler> = None;
+        if router.is_some() {
+            let m = Method::from_str(r.method.unwrap()).unwrap();
+            let p = str::from_utf8(&buf.as_slice()[path.0..path.1]).unwrap_or("");
+            handler = router.unwrap().find_handler_with_method_and_path(m, p);
+        }
+
+        let request_line = format!("{} {} HTTP/1.{}", r.method.unwrap(), r.path.unwrap_or(""), r.version.unwrap());
+
         (
          content_length,
          content_type,
-         content_type_metadata, // if content_type_metadata.is_empty() {None} else {Some(content_type_metadata)},
+         content_type_metadata,
+         handler,
          host,
          method,
          path,
          payload,
          query,
+         request_line,
          scheme,
          uri,
          r.version.unwrap(),
@@ -360,6 +397,7 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
     };
 
     let res = Request {
+        base_path: base_path,
         content_length: content_length,
         content_type: content_type,
         content_type_metadata: content_type_metadata,
@@ -370,13 +408,15 @@ pub fn decode(buf: &mut EasyBuf, remote_addr: Option<SocketAddr>) -> io::Result<
         payload: payload,
         query: query,
         remote_addr: remote_addr,
+        request_line: request_line,
         scheme: scheme,
         uri: uri,
         username: "".to_string(),
         version: version,
         headers: headers,
         data: ReqReader::new(buf.drain_to(amt)),
-        handler: None,
+        handler: handler,
+        logger: logger,
     };
 
     Ok(Some(res))

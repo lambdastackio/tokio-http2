@@ -12,7 +12,7 @@ use tokio_core::net::{TcpStream, TcpListener};
 use tokio_core::reactor::{Core, Handle};
 use tokio_service::NewService;
 
-use Handler; // *lsio* mod
+use Router; // *lsio* mod
 
 // TODO: Add more options, e.g.:
 // - max concurrent requests
@@ -39,7 +39,7 @@ pub struct TcpServer<Kind, P> {
     proto: Arc<P>,
     threads: usize,
     addr: SocketAddr,
-    handlers: Option<Handler>, // *lsio* mod
+    pub router: Option<Router>, // *lsio* mod
 }
 
 impl<Kind, P> TcpServer<Kind, P> where
@@ -64,7 +64,7 @@ impl<Kind, P> TcpServer<Kind, P> where
             proto: Arc::new(protocol),
             threads: 1,
             addr: addr,
-            handlers: None,
+            router: None,
         }
     }
 

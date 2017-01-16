@@ -31,13 +31,20 @@ use self::builder::RouterBuilder;
 pub type HttpResult<T> = Result<T, StatusCode>;
 
 /// This is the one. The router.
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Router {
-    routes: Vec<Route>
+    pub routes: Vec<Route>
 }
 
 impl Router {
-    /// Finds handler for given request.
+    /// Create a default Router.
+    ///
+    /// Returns a newly created Router.
+    pub fn new() -> Router {
+        Router{ routes: Vec::new() }
+    }
+
+    /// Finds handler for given Request.
     ///
     /// This method uses default error handlers.
     /// If the request does not match any route than default 404 handler is returned.
@@ -59,31 +66,46 @@ impl Router {
         // }
     }
 
-    /// Finds handler for given Hyper request.
+    /// Finds handler for given Request.
     ///
     /// It returns handler if it's found or `StatusCode` for error.
     /// This method may return `NotFound`, `MethodNotAllowed` or `NotImplemented`
     /// status codes.
-    pub fn find_handler(&self, request: &Request) -> HttpResult<Handler> {
+    pub fn find_handler(&self, request: &Request) -> Option<Handler> { //HttpResult<Handler> {
         //if let AbsolutePath(request_path) = request.uri().clone() {
         // if let Some(request_path) = request.path() {
         let request_path = request.path();
         let matching_routes = self.find_matching_routes(&request_path);
         match matching_routes.len() {
-            x if x <= 0 => Err(StatusCode::NotFound),
+            x if x <= 0 => None, //Err(StatusCode::NotFound),
             _ => {
                 self.find_for_method(&matching_routes, &request.method())
-                    .map(|handler| Ok(handler))
-                    .unwrap_or(Err(StatusCode::MethodNotAllowed))
-            }
+                    // .map(|handler| Ok(handler))
+                    // .unwrap_or(Err(StatusCode::MethodNotAllowed))
+            },
         }
         // } else {
         //     Err(StatusCode::NotImplemented)
         // }
     }
 
+    /// Finds handler for given &str path.
+    ///
+    /// It returns handler if it's found or `StatusCode` for error.
+    /// This method may return `NotFound`, `MethodNotAllowed` or `NotImplemented`
+    /// status codes.
+    pub fn find_handler_with_method_and_path(&self, method: Method, request_path: &str) -> Option<Handler> {
+        let matching_routes = self.find_matching_routes(request_path);
+        match matching_routes.len() {
+            x if x <= 0 => None,
+            _ => {
+                self.find_for_method(&matching_routes, &method)
+            },
+        }
+    }
+
     /// Returns vector of `Route`s that match to given path.
-    pub fn find_matching_routes(&self, request_path: &str) -> Vec<&Route> {
+    fn find_matching_routes(&self, request_path: &str) -> Vec<&Route> {
         self.routes.iter()
             .filter(|route| {
                 route.path.matcher.is_match(&request_path)
@@ -91,7 +113,7 @@ impl Router {
             .collect()
     }
 
-    fn find_for_method(&self, routes: &Vec<&Route>, method: &Method) -> Option<Handler> {
+    pub fn find_for_method(&self, routes: &Vec<&Route>, method: &Method) -> Option<Handler> {
         let method = method.clone();
         routes.iter()
             .find(|route| route.method == method)

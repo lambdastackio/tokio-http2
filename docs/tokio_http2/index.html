@@ -47,11 +47,17 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#15-74' title='goto source code'>[src]</a></span></h1>
-<div class='docblock'><p>This library supplies the required modules to implement HTTP/2 which includes the HPACK header
-compression that includes the Huffman encoding/decoding features.</p>
+               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#15-91' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>HTTP/1.1:
+This library provides an HTTP library built on Futures and the Tokio Project for Async I/O.
+This version supports Pipelining for HTTP/1.1.</p>
+
+<p>HTTP/2: (Interface being released soon)
+This library supplies the required modules to implement HTTP/2 which includes the HPACK header
+compression that includes the Huffman encoding/decoding features. This version will support
+Multiplexing which is required for HTTP/2.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
-<table><tr><td><code>pub use status::StatusCode::{<a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>self</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>Ok</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>BadRequest</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>NotFound</a>};</code></td></tr><tr><td><code>pub use version::<a class='enum' href='../tokio_http2/version/enum.HttpVersion.html' title='tokio_http2::version::HttpVersion'>HttpVersion</a>;</code></td></tr><tr><td><code>pub use error::{<a class='type' href='../tokio_http2/error/type.Result.html' title='tokio_http2::error::Result'>Result</a>, <a class='enum' href='../tokio_http2/error/enum.Error.html' title='tokio_http2::error::Error'>Error</a>};</code></td></tr><tr><td><code>pub use method::<a class='enum' href='../tokio_http2/method/enum.Method.html' title='tokio_http2::method::Method'>Method</a>;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr><td><code>pub use status::StatusCode::{<a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>self</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>Ok</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>BadRequest</a>, <a class='enum' href='../tokio_http2/status/enum.StatusCode.html' title='tokio_http2::status::StatusCode'>NotFound</a>};</code></td></tr><tr><td><code>pub use version::<a class='enum' href='../tokio_http2/version/enum.HttpVersion.html' title='tokio_http2::version::HttpVersion'>HttpVersion</a>;</code></td></tr><tr><td><code>pub use error::{<a class='type' href='../tokio_http2/error/type.Result.html' title='tokio_http2::error::Result'>Result</a>, <a class='enum' href='../tokio_http2/error/enum.Error.html' title='tokio_http2::error::Error'>Error</a>};</code></td></tr><tr><td><code>pub use method::<a class='enum' href='../tokio_http2/method/enum.Method.html' title='tokio_http2::method::Method'>Method</a>;</code></td></tr><tr><td><code>pub use router::route::route::<a class='struct' href='../tokio_http2/router/route/route/struct.Route.html' title='tokio_http2::router::route::route::Route'>Route</a>;</code></td></tr><tr><td><code>pub use router::<a class='struct' href='../tokio_http2/router/struct.Router.html' title='tokio_http2::router::Router'>Router</a>;</code></td></tr><tr><td><code>pub use router::builder::<a class='struct' href='../tokio_http2/router/builder/struct.RouterBuilder.html' title='tokio_http2::router::builder::RouterBuilder'>RouterBuilder</a>;</code></td></tr><tr><td><code>pub use logger::{<a class='struct' href='../tokio_http2/logger/struct.Logger.html' title='tokio_http2::logger::Logger'>Logger</a>, <a class='enum' href='../tokio_http2/logger/enum.LoggerLevel.html' title='tokio_http2::logger::LoggerLevel'>LoggerLevel</a>};</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>
                        <tr class=' module-item'>
                            <td><a class='mod' href='error/index.html'
@@ -61,10 +67,34 @@ compression that includes the Huffman encoding/decoding features.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='hpack/index.html'
+                                  title='tokio_http2::hpack'>hpack</a></td>
+                           <td class='docblock-short'>
+                                <p>This library module provides the required HPACK compression used for HTTP/2 headers.
+A module implementing HPACK functionality. Exposes a simple API for
+performing the encoding and decoding of header sets, according to the
+HPACK spec.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='http/index.html'
                                   title='tokio_http2::http'>http</a></td>
                            <td class='docblock-short'>
                                 
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='http2/index.html'
+                                  title='tokio_http2::http2'>http2</a></td>
+                           <td class='docblock-short'>
+                                <p>This library module provides HTTP/2 parsing and buffer frames used for HTTP/2.</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='mod' href='logger/index.html'
+                                  title='tokio_http2::logger'>logger</a></td>
+                           <td class='docblock-short'>
+                                <p>Logger</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
