@@ -43,7 +43,7 @@ extern crate rustc_serialize;
 extern crate byteorder;
 extern crate multipart;
 
-extern crate cookie;
+// extern crate cookie;
 extern crate futures;
 extern crate futures_cpupool;
 extern crate httparse;

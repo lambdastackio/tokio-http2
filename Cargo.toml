@@ -1,6 +1,6 @@
 [package]
 name = "tokio-http2"
-version = "0.1.6"
+version = "0.1.7"
 authors = ["Chris Jones"]
 license = "Apache-2.0"
 readme = "README.md"
@@ -48,6 +48,6 @@ tokio-proto = "0.1"
 tokio-service = "0.1"
 # pretty_env_logger = "0"
 
-[dependencies.cookie]
-version = "0.3"
-default-features = false
+# [dependencies.cookie]
+# version = "0.3"
+# default-features = false
