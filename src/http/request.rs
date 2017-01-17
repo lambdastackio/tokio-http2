@@ -101,8 +101,6 @@ pub struct Request {
     handler: Option<Handler>,
     /// Optional Logger associated with a given request
     pub logger: Option<Logger>,
-    /// Base path is used to hold the actual base directory location on the server of the request.
-    pub base_path: String,
 }
 
 type Slice = (usize, usize);
@@ -298,8 +296,7 @@ fn combine_duplicates<I: Iterator<Item=(String, String)>>(collection: I) -> Hash
 pub fn decode(buf: &mut EasyBuf,
               remote_addr: Option<SocketAddr>,
               router: Option<Router>,
-              logger: Option<Logger>,
-              base_path: String)
+              logger: Option<Logger>)
               -> io::Result<Option<Request>> {
     let (content_length, content_type, content_type_metadata, handler, host, method, path, payload, query, request_line, scheme, uri, version, headers, amt) = {
         let mut headers = [httparse::EMPTY_HEADER; 16];
@@ -397,7 +394,6 @@ pub fn decode(buf: &mut EasyBuf,
     };
 
     let res = Request {
-        base_path: base_path,
         content_length: content_length,
         content_type: content_type,
         content_type_metadata: content_type_metadata,

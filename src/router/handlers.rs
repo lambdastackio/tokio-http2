@@ -18,18 +18,18 @@ use StatusCode;
 
 /// Default handlers
 
-pub fn default_404_handler(_: Request) -> Response {
+pub fn default_404_handler(_: Request, _: String) -> Response {
     Response::new().with_header("Content-Length", "0").with_status(StatusCode::NotFound)
 }
 
-pub fn method_not_supported_handler(_: Request) -> Response {
+pub fn method_not_supported_handler(_: Request, _: String) -> Response {
     Response::new().with_header("Content-Length", "0").with_status(StatusCode::MethodNotAllowed)
 }
 
-pub fn internal_server_error_handler(_: Request) -> Response {
+pub fn internal_server_error_handler(_: Request, _: String) -> Response {
     Response::new().with_header("Content-Length", "0").with_status(StatusCode::InternalServerError)
 }
 
-pub fn not_implemented_handler(_: Request) -> Response {
+pub fn not_implemented_handler(_: Request, _: String) -> Response {
     Response::new().with_header("Content-Length", "0").with_status(StatusCode::NotImplemented)
 }

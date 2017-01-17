@@ -1,6 +1,6 @@
 [package]
 name = "tokio-http2"
-version = "0.1.7"
+version = "0.1.8"
 authors = ["Chris Jones"]
 license = "Apache-2.0"
 readme = "README.md"
@@ -33,7 +33,7 @@ regex = "0"
 libc = "0"
 unicase = "1"
 language-tags = "0"
-multipart = "0"
+multipart = { path = "../multipart" }
 httparse = "1"
 slog = "1"
 slog-json = "1"

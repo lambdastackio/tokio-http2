@@ -88,4 +88,4 @@ pub type Headers = Vec<(String, String)>;
 // NOTE: May want to add an `enum` of options as the second param for a Handler that allows for flexible options
 // pub enum Options...
 // (i.e., pub type Handler = fn(Request, Options) -> Response;)
-pub type Handler = fn(Request) -> Response;
+pub type Handler = fn(Request, String) -> Response;

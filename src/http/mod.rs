@@ -40,13 +40,12 @@ pub mod buffer;
 pub struct HttpProto {
     pub logger: Option<Logger>,
     pub router: Option<Router>,
-    pub base_path: String,
 }
 
 // codec here so as to create a Codec that can handle a remote_addr field.
 impl HttpProto {
-    fn codec(&self, remote_addr: SocketAddr, router: Option<Router>, logger: Option<Logger>, base_path: String) -> HttpCodec {
-        HttpCodec{ request: None, remote_addr: Some(remote_addr), router: router, logger: logger, base_path: base_path }
+    fn codec(&self, remote_addr: SocketAddr, router: Option<Router>, logger: Option<Logger>) -> HttpCodec {
+        HttpCodec{ request: None, remote_addr: Some(remote_addr), router: router, logger: logger }
     }
 }
 
@@ -58,7 +57,7 @@ impl ServerProto<TcpStream> for HttpProto {
 
     fn bind_transport(&self, io: TcpStream) -> io::Result<Framed<TcpStream, HttpCodec>> {
         let addr = io.peer_addr()?;
-        Ok(io.framed(self.codec(addr, self.router.clone(), self.logger.clone(), self.base_path.clone())))
+        Ok(io.framed(self.codec(addr, self.router.clone(), self.logger.clone())))
     }
 }
 
@@ -69,7 +68,6 @@ pub struct HttpCodec {
     remote_addr: Option<SocketAddr>,
     router: Option<Router>,
     logger: Option<Logger>,
-    base_path: String,
 }
 
 impl Codec for HttpCodec {
@@ -78,7 +76,7 @@ impl Codec for HttpCodec {
 
     /// HttpCodec::decode can be modified to fit whatever is needed.
     fn decode(&mut self, buf: &mut EasyBuf) -> io::Result<Option<Request>> {
-        match request::decode(buf, self.remote_addr, self.router.clone(), self.logger.clone(), self.base_path.clone()) {
+        match request::decode(buf, self.remote_addr, self.router.clone(), self.logger.clone()) {
             Ok(req) => {
                 match req {
                     Some(req) => {
@@ -118,7 +116,6 @@ impl Codec for HttpCodec {
 }
 
 // Original shown here for example reference...
-
 // pub struct Http;
 //
 // impl<T: Io + 'static> ServerProto<T> for Http {
