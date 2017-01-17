@@ -52,37 +52,37 @@ pub enum LoggerLevel {
 // Maybe expose the slog?
 // Maybe allow init options to be passed in?
 
-#[cfg(target_os = "linux")]
-fn logger(path: Option<&str>) -> slog::Logger {
-    if path.is_some() {
-        let file = OpenOptions::new()
-                            .append(true)
-                            .create(true)
-                            .open(path.unwrap()).unwrap();
-        // let stream = slog_stream::stream(file, LoggerFormat);//.fuse();
-        //
-        // if tty {
-        //     let term = slog_term::streamer().build();//.fuse();
-        //     slog::Logger::root(slog::duplicate(stream, term).fuse(), o!())
-        // } else {
-        //     slog::Logger::root(stream.fuse(), o!())
-        // }
+// #[cfg(target_os = "linux")]
+// fn logger(path: Option<&str>) -> slog::Logger {
+//     if path.is_some() {
+//         let file = OpenOptions::new()
+//                             .append(true)
+//                             .create(true)
+//                             .open(path.unwrap()).unwrap();
+//         // let stream = slog_stream::stream(file, LoggerFormat);//.fuse();
+//         //
+//         // if tty {
+//         //     let term = slog_term::streamer().build();//.fuse();
+//         //     slog::Logger::root(slog::duplicate(stream, term).fuse(), o!())
+//         // } else {
+//         //     slog::Logger::root(stream.fuse(), o!())
+//         // }
+//
+//         let stream = slog_stream::stream(file, LoggerFormat);//.fuse();
+//         let term = slog_term::streamer().build();//.fuse();
+//         // slog::Logger::root(stream, o!())
+//         // slog::Logger::root(slog::Duplicate::new(
+//         //                    slog::LevelFilter::new(stream, slog::Level::Info),
+//         //                    slog::LevelFilter::new(term, slog::Level::Info),
+//         //                ).fuse(), o!())
+//         slog::Logger::root(slog::duplicate(stream, term).fuse(), o!())
+//     } else {
+//         let stream = slog_syslog::unix_3164(slog_syslog::Facility::LOG_DAEMON).fuse();
+//         slog::Logger::root(stream, o!())
+//     }
+// }
 
-        let stream = slog_stream::stream(file, LoggerFormat);//.fuse();
-        let term = slog_term::streamer().build();//.fuse();
-        // slog::Logger::root(stream, o!())
-        // slog::Logger::root(slog::Duplicate::new(
-        //                    slog::LevelFilter::new(stream, slog::Level::Info),
-        //                    slog::LevelFilter::new(term, slog::Level::Info),
-        //                ).fuse(), o!())
-        slog::Logger::root(slog::duplicate(stream, term).fuse(), o!())
-    } else {
-        let stream = slog_syslog::unix_3164(slog_syslog::Facility::LOG_DAEMON).fuse();
-        slog::Logger::root(stream, o!())
-    }
-}
-
-#[cfg(not(target_os = "linux"))]
+// #[cfg(not(target_os = "linux"))]
 fn logger(path: Option<&str>) -> slog::Logger {
     // let tty = stdout_isatty();
 

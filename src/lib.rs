@@ -58,8 +58,9 @@ extern crate tokio_proto;
 extern crate tokio_service;
 extern crate tokio_tls;
 
-pub mod http2;
-pub mod hpack;
+// For now...
+// pub mod http2;
+// pub mod hpack;
 
 pub mod http;
 pub mod version;
