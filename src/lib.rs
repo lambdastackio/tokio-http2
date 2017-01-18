@@ -12,6 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Multipart portion brought internal due to openssl issue in Linux.
+// Copyright 2016 `multipart` Crate Developers
+//
+// Licensed under the Apache License, Version 2.0, <LICENSE-APACHE or
+// http://apache.org/licenses/LICENSE-2.0> or the MIT license <LICENSE-MIT or
+// http://opensource.org/licenses/MIT>, at your option. This file may not be
+// copied, modified, or distributed except according to those terms.
+
 #![allow(unused_imports)]
 #![allow(unused_mut)]
 #![allow(unused_variables)]
@@ -34,6 +42,7 @@
 #[macro_use] extern crate bitflags;
 #[macro_use] extern crate url;
 #[macro_use] extern crate slog;
+extern crate pretty_env_logger;
 extern crate slog_term;
 extern crate slog_json;
 extern crate slog_stream;
@@ -41,7 +50,12 @@ extern crate slog_syslog;
 extern crate unicase;
 extern crate rustc_serialize;
 extern crate byteorder;
-extern crate multipart;
+extern crate mime;
+extern crate mime_guess;
+extern crate rand;
+extern crate tempdir;
+
+// extern crate multipart;
 
 // extern crate cookie;
 extern crate futures;
@@ -90,3 +104,24 @@ pub type Headers = Vec<(String, String)>;
 // pub enum Options...
 // (i.e., pub type Handler = fn(Request, Options) -> Response;)
 pub type Handler = fn(Request, String) -> Response;
+
+
+// Section below from multipart crate
+use rand::Rng;
+
+#[macro_export]
+macro_rules! chain_result {
+    ($first_expr:expr, $($try_expr:expr),*) => (
+        $first_expr $(.and_then(|_| $try_expr))*
+    );
+    ($first_expr:expr, $($($arg:ident),+ -> $try_expr:expr),*) => (
+        $first_expr $(.and_then(|$($arg),+| $try_expr))*
+    );
+}
+
+// pub mod client;
+pub mod server;
+
+fn random_alphanumeric(len: usize) -> String {
+    rand::thread_rng().gen_ascii_chars().take(len).collect()
+}

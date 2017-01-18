@@ -29,7 +29,8 @@ use unicase::UniCase;
 use httparse;
 use url::form_urlencoded;
 
-use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
+// use multipart::server::{HttpRequest, Multipart, Entries, SaveResult};
+use server::{HttpRequest, Multipart, Entries, SaveResult};
 use super::buffer::Buffer;
 use Method;
 use Handler;

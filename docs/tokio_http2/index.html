@@ -47,7 +47,7 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#15-91' title='goto source code'>[src]</a></span></h1>
+               </span><a id='src-0' class='srclink' href='../src/tokio_http2/src/lib.rs.html#23-127' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>HTTP/1.1:
 This library provides an HTTP library built on Futures and the Tokio Project for Async I/O.
 This version supports Pipelining for HTTP/1.1.</p>
@@ -67,27 +67,10 @@ Multiplexing which is required for HTTP/2.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
-                           <td><a class='mod' href='hpack/index.html'
-                                  title='tokio_http2::hpack'>hpack</a></td>
-                           <td class='docblock-short'>
-                                <p>This library module provides the required HPACK compression used for HTTP/2 headers.
-A module implementing HPACK functionality. Exposes a simple API for
-performing the encoding and decoding of header sets, according to the
-HPACK spec.</p>
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
                            <td><a class='mod' href='http/index.html'
                                   title='tokio_http2::http'>http</a></td>
                            <td class='docblock-short'>
                                 
-                           </td>
-                       </tr>
-                       <tr class=' module-item'>
-                           <td><a class='mod' href='http2/index.html'
-                                  title='tokio_http2::http2'>http2</a></td>
-                           <td class='docblock-short'>
-                                <p>This library module provides HTTP/2 parsing and buffer frames used for HTTP/2.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
@@ -112,6 +95,14 @@ HPACK spec.</p>
                            </td>
                        </tr>
                        <tr class=' module-item'>
+                           <td><a class='mod' href='server/index.html'
+                                  title='tokio_http2::server'>server</a></td>
+                           <td class='docblock-short'>
+                                <p>The server-side abstraction for multipart requests. Enabled with the <code>server</code> feature (on by
+default).</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
                            <td><a class='mod' href='status/index.html'
                                   title='tokio_http2::status'>status</a></td>
                            <td class='docblock-short'>
@@ -123,6 +114,14 @@ HPACK spec.</p>
                                   title='tokio_http2::version'>version</a></td>
                            <td class='docblock-short'>
                                 <p>HTTP Versions enum</p>
+                           </td>
+                       </tr></table><h2 id='macros' class='section-header'><a href="#macros">Macros</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='macro' href='macro.chain_result.html'
+                                  title='tokio_http2::chain_result'>chain_result</a></td>
+                           <td class='docblock-short'>
+                                
                            </td>
                        </tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
