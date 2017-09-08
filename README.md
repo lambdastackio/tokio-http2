@@ -13,7 +13,7 @@ NB: Several projects from the Tokio Project are not currently crates which means
 ## Contents
 
 1. [Contents](#contents)
-* [API Documentation](https://lambdastackio.github.io/tokio-http2/tokio-http2/index.html)
+* [API Documentation](https://lambdastackio.github.io/tokio-http2/tokio_http2/index.html)
 * [Tokio Project](https://github.com/tokio-rs)
 * [Tokio-HTTP2 Design Goals](#design)
 * [Tokio-HTTP2 Objectives](#objectives)
